@@ -10,51 +10,53 @@ export default function CreateUser() {
   };
   return (
     <div className={Styles.User}>
-      создание пользователей
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{}}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <BootstrapForm.Group controlId="formBasicEmail">
-              <BootstrapForm.Label>Email address</BootstrapForm.Label>
-              <Field name="email">
-                {({ input }) => (
-                  <BootstrapForm.Control
-                    name="email"
-                    type="email"
-                    placeholder="Enter email"
-                    onChange={(date) => {
-                      input.onChange(date);
-                    }}
-                  />
-                )}
-              </Field>
-              <BootstrapForm.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </BootstrapForm.Text>
-            </BootstrapForm.Group>
-            <BootstrapForm.Group controlId="formBasicPassword">
-              <BootstrapForm.Label>Password</BootstrapForm.Label>
-              <Field name="password">
-                {({ input }) => (
-                  <BootstrapForm.Control
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    onChange={(date) => {
-                      input.onChange(date);
-                    }}
-                  />
-                )}
-              </Field>
-            </BootstrapForm.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </form>
-        )}
-      />
+      <div className={Styles.User_container}>
+        Создание пользователей
+        <Form
+          onSubmit={onSubmit}
+          initialValues={{}}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <BootstrapForm.Group controlId="formBasicEmail">
+                <BootstrapForm.Label>Email address</BootstrapForm.Label>
+                <Field name="email">
+                  {({ input }) => (
+                    <BootstrapForm.Control
+                      name="email"
+                      type="email"
+                      placeholder="Enter email"
+                      onChange={(date) => {
+                        input.onChange(date);
+                      }}
+                    />
+                  )}
+                </Field>
+                <BootstrapForm.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </BootstrapForm.Text>
+              </BootstrapForm.Group>
+              <BootstrapForm.Group controlId="formBasicPassword">
+                <BootstrapForm.Label>Password</BootstrapForm.Label>
+                <Field name="password">
+                  {({ input }) => (
+                    <BootstrapForm.Control
+                      name="password"
+                      type="password"
+                      placeholder="Password"
+                      onChange={(date) => {
+                        input.onChange(date);
+                      }}
+                    />
+                  )}
+                </Field>
+              </BootstrapForm.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </form>
+          )}
+        />
+      </div>
     </div>
   );
 }
