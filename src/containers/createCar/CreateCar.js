@@ -7,13 +7,13 @@ import axios from "axios";
 
 export default function CreateCar() {
   // const [name, setName] = React.useState("");
-  // const [prise, setprise] = React.useState("");
+  // const [price, setprice] = React.useState("");
 
-  const createCars = async (name, prise) => {
+  const createCars = async (name, price) => {
     try {
       const response = await axios.post("http://localhost:5000/cars", {
         name,
-        prise,
+        price,
       });
 
       console.log(response);
@@ -23,9 +23,9 @@ export default function CreateCar() {
   };
 
   const onSubmit = async (value) => {
-    const { name, prise } = value;
+    const { name, price } = value;
 
-    createCars(name, prise);
+    createCars(name, price);
   };
   return (
     <div className={Styles.Car}>
@@ -51,14 +51,14 @@ export default function CreateCar() {
                 </Field>
               </BootstrapForm.Group>
 
-              <BootstrapForm.Group controlId="prise">
-                <BootstrapForm.Label>prise $</BootstrapForm.Label>
-                <Field name="prise">
+              <BootstrapForm.Group controlId="price">
+                <BootstrapForm.Label>price $</BootstrapForm.Label>
+                <Field name="price">
                   {({ input }) => (
                     <BootstrapForm.Control
-                      name="prise"
+                      name="price"
                       type="number"
-                      placeholder="prise"
+                      placeholder="price"
                       onChange={(date) => {
                         input.onChange(date);
                       }}

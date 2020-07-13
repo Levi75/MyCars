@@ -21,12 +21,12 @@ export default function Car({ car }) {
   };
 
   const updateCar = async (value) => {
-    const { name, prise } = value;
+    const { name, price } = value;
 
     try {
       await axios.put(`http://localhost:5000/cars/${id}`, {
         name: name,
-        prise,
+        price,
       });
       console.log("success update ");
     } catch (e) {
@@ -43,7 +43,7 @@ export default function Car({ car }) {
     <div className={Styles.Car}>
       <div>
         <span> name: {car.name}</span>
-        <span> prise: {car.prise}</span>
+        <span> price: {car.price}</span>
       </div>
       <button onClick={() => deleteCar(car.cars_id)}> delete</button>
       <button onClick={() => setShowUpdate(!showUpdate)}> update</button>
@@ -70,18 +70,18 @@ export default function Car({ car }) {
                 </Field>
               </BootstrapForm.Group>
 
-              <BootstrapForm.Group controlId="prise">
-                <BootstrapForm.Label>prise $</BootstrapForm.Label>
-                <Field name="prise">
+              <BootstrapForm.Group controlId="price">
+                <BootstrapForm.Label>price $</BootstrapForm.Label>
+                <Field name="price">
                   {({ input }) => (
                     <BootstrapForm.Control
-                      name="prise"
+                      name="price"
                       type="number"
-                      placeholder="prise"
+                      placeholder="price"
                       onChange={(date) => {
                         input.onChange(date);
                       }}
-                      placeholder={car.prise}
+                      placeholder={car.price}
                     />
                   )}
                 </Field>
