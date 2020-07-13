@@ -53,11 +53,15 @@ app.get("/cars/:id", async (req, res) => {
 app.put("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name } = req.body;
-    await pool.query("UPDATE carses SET name = $1 WHERE cars_id=$2", [
-      name,
-      id,
-    ]);
+    const { name, prise } = req.body;
+
+    const strName = name ? `name = '${name}'` : "";
+    const strPrise = prise ? `prise = '${prise}'` : "";
+    const body =
+      name && prise ? `${strName}, ${strPrise}` : `${strName} ${strPrise}`;
+    console.log(body);
+
+    await pool.query(`UPDATE carses SET ${body} WHERE cars_id=${id}`);
     res.json("Car was Updated");
   } catch (err) {
     console.error(err.massage);

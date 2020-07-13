@@ -61,11 +61,10 @@ export default function Car({ car }) {
                     <BootstrapForm.Control
                       name="name"
                       type="text"
-                      placeholder="Enter car name"
+                      placeholder={car.name}
                       onChange={(date) => {
                         input.onChange(date);
                       }}
-                      value={car.name}
                     />
                   )}
                 </Field>
@@ -82,7 +81,7 @@ export default function Car({ car }) {
                       onChange={(date) => {
                         input.onChange(date);
                       }}
-                      value={car.prise}
+                      placeholder={car.prise}
                     />
                   )}
                 </Field>
