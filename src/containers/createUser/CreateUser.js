@@ -44,9 +44,6 @@ export default function CreateUser() {
                     />
                   )}
                 </Field>
-                <BootstrapForm.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </BootstrapForm.Text>
               </BootstrapForm.Group>
               <BootstrapForm.Group controlId="formBasicPassword">
                 <BootstrapForm.Label>Password</BootstrapForm.Label>

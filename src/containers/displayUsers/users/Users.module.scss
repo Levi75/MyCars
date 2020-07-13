@@ -1,0 +1,10 @@
+.User {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  border: 1px solid black;
+  margin: 1rem;
+  & span {
+    margin: 0.5rem;
+  }
+}
