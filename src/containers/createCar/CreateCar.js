@@ -1,32 +1,60 @@
 import React from "react";
 import Styles from "./CreateCar.module.scss";
-import Form from "react-bootstrap/Form";
+import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Form, Field } from "react-final-form";
 
 export default function CreateCar() {
+  const onSubmit = async (value) => {
+    console.log(value);
+  };
   return (
     <div className={Styles.Car}>
       <div className={Styles.Car_container}>
-        <Form>
-          <Form.Group controlId="name">
-            <Form.Label>Car name</Form.Label>
-            <Form.Control type="text" placeholder="Enter car name" />
-          </Form.Group>
+        Создание машины
+        <Form
+          onSubmit={onSubmit}
+          initialValues={{}}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <BootstrapForm.Group controlId="name">
+                <BootstrapForm.Label>Car name</BootstrapForm.Label>
+                <Field name="name">
+                  {({ input }) => (
+                    <BootstrapForm.Control
+                      name="name"
+                      type="text"
+                      placeholder="Enter car name"
+                      onChange={(date) => {
+                        input.onChange(date);
+                      }}
+                    />
+                  )}
+                </Field>
+              </BootstrapForm.Group>
 
-          <Form.Group controlId="year">
-            <Form.Label>Year of car manufacture</Form.Label>
-            <Form.Control type="date" placeholder="Year of car manufacture" />
-          </Form.Group>
+              <BootstrapForm.Group controlId="price">
+                <BootstrapForm.Label>Price $</BootstrapForm.Label>
+                <Field name="price">
+                  {({ input }) => (
+                    <BootstrapForm.Control
+                      name="price"
+                      type="number"
+                      placeholder="price"
+                      onChange={(date) => {
+                        input.onChange(date);
+                      }}
+                    />
+                  )}
+                </Field>
+              </BootstrapForm.Group>
 
-          <Form.Group controlId="price">
-            <Form.Label>Price $</Form.Label>
-            <Form.Control type="number" placeholder="Price" />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Registration car
-          </Button>
-        </Form>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </form>
+          )}
+        />
       </div>
     </div>
   );
