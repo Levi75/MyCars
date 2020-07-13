@@ -3,10 +3,23 @@ import Styles from "./CreateUser.module.scss";
 import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
+import axios from "axios";
 
 export default function CreateUser() {
+  const postUser = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/todos", {
+        description: "bibi",
+      });
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmit = async (value) => {
     console.log(value);
+    postUser();
   };
   return (
     <div className={Styles.User}>

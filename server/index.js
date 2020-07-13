@@ -82,6 +82,7 @@ app.delete("/cars/:id", async (req, res) => {
 
 // user routes //
 
+
 app.post("/add-user", async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -101,6 +102,7 @@ app.post("/add-user", async (req, res) => {
     console.error(e.massage);
   }
 });
+
 app.get("/all-users", async (req, res) => {
   try {
     const allPerntodo = await pool.query("SELECT * FROM users");
@@ -109,6 +111,7 @@ app.get("/all-users", async (req, res) => {
     console.error(e.massage);
   }
 });
+
 app.get("/user/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,14 +123,17 @@ app.get("/user/:id", async (req, res) => {
     console.error(e.massage);
   }
 });
+
 app.put("/change-user/:id", async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id);
     const { body } = req;
     console.log(body);
+
     Object.entries(body).map(async (params) => {
       console.log(params);
+
       if (params[1] === undefined || params[1] === null) {
         return;
       }
@@ -136,11 +142,13 @@ app.put("/change-user/:id", async (req, res) => {
         [params[1], id]
       );
     });
+
     res.json("success");
   } catch (e) {
     console.error(e.massage);
   }
 });
+
 app.delete("/delete-user/:id", async (req, res) => {
   try {
     const { id } = req.params;
