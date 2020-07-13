@@ -8,23 +8,23 @@ export default function CreateCar() {
     <div className={Styles.Car}>
       <div className={Styles.Car_container}>
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
+          <Form.Group controlId="name">
+            <Form.Label>Car name</Form.Label>
+            <Form.Control type="text" placeholder="Enter car name" />
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+          <Form.Group controlId="year">
+            <Form.Label>Year of car manufacture</Form.Label>
+            <Form.Control type="date" placeholder="Year of car manufacture" />
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
+
+          <Form.Group controlId="price">
+            <Form.Label>Price $</Form.Label>
+            <Form.Control type="number" placeholder="Price" />
           </Form.Group>
+
           <Button variant="primary" type="submit">
-            Submit
+            Registration car
           </Button>
         </Form>
       </div>
