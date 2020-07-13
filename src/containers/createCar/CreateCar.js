@@ -3,15 +3,33 @@ import Styles from "./CreateCar.module.scss";
 import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
+import axios from "axios";
 
 export default function CreateCar() {
+  // const [name, setName] = React.useState("");
+  // const [price, setprice] = React.useState("");
+
+  const createCars = async (name, price) => {
+    try {
+      const response = await axios.post("http://localhost:5000/cars", {
+        name,
+        price,
+      });
+
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmit = async (value) => {
-    console.log(value);
+    const { name, price } = value;
+
+    createCars(name, price);
   };
   return (
     <div className={Styles.Car}>
       <div className={Styles.Car_container}>
-        
         <Form
           onSubmit={onSubmit}
           initialValues={{}}
@@ -34,7 +52,7 @@ export default function CreateCar() {
               </BootstrapForm.Group>
 
               <BootstrapForm.Group controlId="price">
-                <BootstrapForm.Label>Price $</BootstrapForm.Label>
+                <BootstrapForm.Label>price $</BootstrapForm.Label>
                 <Field name="price">
                   {({ input }) => (
                     <BootstrapForm.Control
