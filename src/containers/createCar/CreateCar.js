@@ -11,7 +11,7 @@ export default function CreateCar() {
   return (
     <div className={Styles.Car}>
       <div className={Styles.Car_container}>
-        Создание машины
+        
         <Form
           onSubmit={onSubmit}
           initialValues={{}}
