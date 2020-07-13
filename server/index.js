@@ -13,11 +13,12 @@ app.use(express.json());
 
 app.post("/cars", async (req, res) => {
   try {
-    const { description } = req.body;
+    const { name, prise } = req.body;
+    console.log(name, prise);
 
     const newCar = await pool.query(
-      "INSERT INTO cars (description) VALUES($1) RETURNING *",
-      [description]
+      "INSERT INTO carses(name,prise) VALUES($1,$2) RETURNING *;",
+      [name, prise]
     );
 
     res.json(newCar.rows[0]);
@@ -30,7 +31,7 @@ app.post("/cars", async (req, res) => {
 
 app.get("/cars", async (req, res) => {
   try {
-    const allCars = await pool.query("SELECT * FROM cars");
+    const allCars = await pool.query("SELECT * FROM carses");
     res.json(allCars.rows);
   } catch (err) {
     console.error(err.massage);
@@ -41,7 +42,7 @@ app.get("/cars", async (req, res) => {
 app.get("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const car = await pool.query("SELECT * FROM cars WHERE cars_id=$1", [id]);
+    const car = await pool.query("SELECT * FROM carses WHERE cars_id=$1", [id]);
     res.json(car.rows[0]);
   } catch (err) {
     console.error(err.massage);
@@ -52,11 +53,11 @@ app.get("/cars/:id", async (req, res) => {
 app.put("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { description } = req.body;
-    const updateCar = await pool.query(
-      "UPDATE cars SET description = $1 WHERE cars_id=$2",
-      [description, id]
-    );
+    const { name } = req.body;
+    await pool.query("UPDATE carses SET name = $1 WHERE cars_id=$2", [
+      name,
+      id,
+    ]);
     res.json("Car was Updated");
   } catch (err) {
     console.error(err.massage);
@@ -68,9 +69,7 @@ app.delete("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const updateCar = await pool.query("DELETE FROM cars WHERE cars_id=$1", [
-      id,
-    ]);
+    await pool.query("DELETE FROM carses WHERE cars_id=$1", [id]);
     res.json("Car was deleted!");
   } catch (err) {
     console.error(err.massage);

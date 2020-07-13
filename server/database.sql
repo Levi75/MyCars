@@ -1,6 +1,7 @@
 CREATE DATABASE perncars;
 
-CREATE TABLE cars(
+CREATE TABLE carses(
     cars_id SERIAL PRIMARY KEY,
-    description VARCHAR(255)
+    name VARCHAR(255),
+    prise VARCHAR(255),
 );
