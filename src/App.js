@@ -5,6 +5,7 @@ import CreateCar from "./containers/createCar/CreateCar";
 import CreateUser from "./containers/createUser/CreateUser";
 import DisplayCars from "./containers/displayCars/DisplayCars";
 import DisplayUsers from "./containers/displayUsers/DisplayUsers";
+import Garage from "./containers/garage/Garage";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <p>
           <Link to="/display-user">Display Users</Link>
         </p>
+        <p>
+          <Link to="/display-user">Display Users</Link>
+        </p>
       </div>
       <div>
         <Switch>
@@ -29,6 +33,7 @@ function App() {
           <Route path="/сreate-user" component={CreateUser} />
           <Route path="/display-car" component={DisplayCars} />
           <Route path="/display-user" component={DisplayUsers} />
+          <Route path="/garage" component={Garage} />
         </Switch>
       </div>
     </>
