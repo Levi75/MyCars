@@ -30,7 +30,6 @@ app.post("/cars", async (req, res) => {
 
 app.get("/cars", async (req, res) => {
   try {
-    console.log(pool);
     const allCars = await pool.query("SELECT * FROM cars");
     res.json(allCars.rows);
   } catch (err) {
