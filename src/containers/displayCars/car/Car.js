@@ -5,7 +5,7 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 
-export default function Car({ car }) {
+export default function Car({ car, getCars }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   const id = car.cars_id;
@@ -13,11 +13,10 @@ export default function Car({ car }) {
   const deleteCar = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/cars/${id}`);
-      console.log("success delete");
+      return getCars();
     } catch (e) {
-      console.log(e);
+      return console.log(e);
     }
-    window.location.reload();
   };
 
   const updateCar = async (value) => {
@@ -28,11 +27,10 @@ export default function Car({ car }) {
         name: name,
         price,
       });
-      console.log("success update ");
+      return getCars();
     } catch (e) {
-      console.log(e);
+      return console.log(e);
     }
-    window.location.reload();
   };
 
   const onSubmit = async (value) => {

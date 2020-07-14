@@ -14,7 +14,6 @@ export default function Users({ user, getUsers }) {
   const deleteCar = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/delete-user/${id}`);
-      console.log("success delete");
       getUsers();
     } catch (e) {
       console.log(e);
@@ -27,7 +26,6 @@ export default function Users({ user, getUsers }) {
       await axios.put(`http://localhost:5000/change-user/${id}`, {
         name: name,
       });
-      console.log("success update ");
       getUsers();
     } catch (e) {
       console.log(e);

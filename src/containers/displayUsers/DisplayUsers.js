@@ -9,8 +9,6 @@ export default function DisplayCars() {
   const getUsers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/all-users");
-      console.log(response);
-
       setUsers(response.data);
     } catch (e) {
       console.log(e);
@@ -23,7 +21,7 @@ export default function DisplayCars() {
 
   return (
     <div className={Styles.DisplayCars}>
-      <h1> display cars</h1>
+      <h1> display users</h1>
       {users.map((user, index) => {
         return <Users user={user} key={index} getUsers={getUsers} />;
       })}
