@@ -44,8 +44,7 @@ export default function Garage() {
 
   return (
     <div className={Styles.Garage}>
-      <h1> Garage</h1>
-      <div>
+      <div className={Styles.Garage_container}>
         <div className={Styles.infoUser}>
           <p> user email: {user.email}</p>
           <p> user name: {user.name}</p>
@@ -62,7 +61,12 @@ export default function Garage() {
       <div>
         {ownerlessCars !== []
           ? ownerlessCars.map((car, index) => {
-              return <OwnerlessCars car={car} key={index} />;
+              return (
+                <div>
+                  <h2>Ownerless Cars</h2>
+                  <OwnerlessCars car={car} key={index} />
+                </div>
+              );
             })
           : null}
       </div>
