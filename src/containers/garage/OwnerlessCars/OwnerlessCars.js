@@ -11,7 +11,6 @@ export default function OwnerlessCars({ car }) {
       await axios.put(`http://localhost:5000/garage/${userId}`, {
         carId,
       });
-      console.log("success add car");
     } catch (e) {
       console.log(e);
     }
