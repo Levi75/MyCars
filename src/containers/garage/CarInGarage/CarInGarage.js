@@ -41,6 +41,7 @@ export default function CarInGarage({ car, user }) {
 
   return (
     <div className={Styles.CarInGarage}>
+        
       <div>
         <span> user: {user.email}</span>
         <span> user: {user.name}</span>
