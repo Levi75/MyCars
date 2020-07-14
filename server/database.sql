@@ -11,3 +11,17 @@ CREATE TABLE cars(
     name VARCHAR(50),
     price VARCHAR(50)
 );
+
+
+
+ 
+//добавление столбца user_id в таблицу cars
+ALTER TABLE cars ADD COLUMN user_id SERIAL PRIMARY KEY; 
+
+
+//удаление столбца user_id в таблице cars
+ALTER TABLE cars DROP COLUMN user_id; 
+
+//добавление столбца user_id в таблицу cars со связью с таблицей users столбцом user_id
+
+ALTER TABLE cars ADD COLUMN user_id INTEGER REFERENCES users(user_id);
