@@ -44,6 +44,7 @@ export default function Car({ car }) {
       <div>
         <span> name: {car.name}</span>
         <span> price: {car.price}</span>
+        <span> user: {car.user_id}</span>
       </div>
       <button onClick={() => deleteCar(car.cars_id)}> delete</button>
       <button onClick={() => setShowUpdate(!showUpdate)}> update</button>

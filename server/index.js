@@ -13,12 +13,11 @@ app.use(express.json());
 
 app.post("/cars", async (req, res) => {
   try {
-    const { name, price } = req.body;
-    console.log(name, price);
+    const { name, price, user_id } = req.body;
 
     const newCar = await pool.query(
-      "INSERT INTO cars(name,price) VALUES($1,$2) RETURNING *;",
-      [name, price]
+      "INSERT INTO cars(name,price,user_id) VALUES($1,$2,$3) RETURNING *;",
+      [name, price, user_id]
     );
 
     res.json(newCar.rows[0]);
@@ -81,7 +80,6 @@ app.delete("/cars/:id", async (req, res) => {
 });
 
 // user routes //
-
 
 app.post("/add-user", async (req, res) => {
   try {

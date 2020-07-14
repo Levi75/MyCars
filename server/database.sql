@@ -9,5 +9,6 @@ CREATE TABLE users(
 CREATE TABLE cars(
     cars_id SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    price VARCHAR(50)
+    price VARCHAR(50),
+    user_id INTEGER REFERENCES users(user_id)
 );

@@ -24,7 +24,7 @@ function App() {
           <Link to="/display-user">Display Users</Link>
         </p>
         <p>
-          <Link to="/display-user">Display Users</Link>
+          <Link to="/garage">Garage</Link>
         </p>
       </div>
       <div>

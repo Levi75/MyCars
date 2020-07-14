@@ -8,24 +8,34 @@ import axios from "axios";
 export default function CreateCar() {
   // const [name, setName] = React.useState("");
   // const [price, setprice] = React.useState("");
+  const [users, setUsers] = React.useState();
+  console.log(users);
 
-  const createCars = async (name, price) => {
+  const createCars = async (value) => {
     try {
-      const response = await axios.post("http://localhost:5000/cars", {
-        name,
-        price,
-      });
-
-      console.log(response);
+      await axios.post("http://localhost:5000/cars", value);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const onSubmit = async (value) => {
-    const { name, price } = value;
+  const getUsers = async () => {
+    try {
+      const Users = await axios.get("http://localhost:5000/all-users");
+      console.log(Users);
 
-    createCars(name, price);
+      setUsers(Users.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  React.useEffect(() => {
+    getUsers();
+  }, []);
+
+  const onSubmit = async (value) => {
+    createCars(value);
   };
   return (
     <div className={Styles.Car}>
@@ -66,6 +76,21 @@ export default function CreateCar() {
                   )}
                 </Field>
               </BootstrapForm.Group>
+
+              <BootstrapForm>
+                <BootstrapForm.Group controlId="exampleForm.SelectCustom">
+                  <BootstrapForm.Label>Custom select</BootstrapForm.Label>
+                  <Field name="user_id" component="select">
+                    <option value={null}>{null}</option>
+                    {users &&
+                      users.map((user) => {
+                        return (
+                          <option value={user.user_id}>{user.name}</option>
+                        );
+                      })}
+                  </Field>
+                </BootstrapForm.Group>
+              </BootstrapForm>
 
               <Button variant="primary" type="submit">
                 Submit
