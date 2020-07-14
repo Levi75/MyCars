@@ -163,3 +163,22 @@ app.delete("/delete-user/:id", async (req, res) => {
 app.listen(5000, () => {
   console.log("servre has started on port 5000");
 });
+
+// Routes GARAGE
+
+app.get("/garage/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+        id,
+      ]);
+
+      const cars = await pool.query("SELECT * FROM cars WHERE user_id = $1", [
+        id,
+      ]);
+
+      res.json({user: user.rows[0], cars: cars.rows});
+    } catch (e) {
+      console.error(e.massage);
+    }
+  });

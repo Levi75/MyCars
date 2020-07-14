@@ -5,7 +5,7 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 
-export default function CarInGarage({ car, user }) {
+export default function CarInGarage({ car }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   const id = car.cars_id;
@@ -41,11 +41,7 @@ export default function CarInGarage({ car, user }) {
 
   return (
     <div className={Styles.CarInGarage}>
-        
       <div>
-        <span> user: {user.email}</span>
-        <span> user: {user.name}</span>
-        <br />
         <span> name: {car.name}</span>
         <span> price: {car.price}</span>
       </div>

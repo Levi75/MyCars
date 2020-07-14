@@ -5,27 +5,43 @@ import CarInGarage from "./CarInGarage/CarInGarage";
 import axios from "axios";
 
 export default function Garage() {
-  const [garage, setGarage] = React.useState([]);
+  const [garage, setGarage] = React.useState({});
+  const [cars, setCars] = React.useState([]);
+  const [user, setUser] = React.useState({});
+  const [userId, setUserId] = React.useState(1);
+  console.log(garage);
 
-  //   const getGarage = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:5000/cars");
-  //       setGarage(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
+  const getGarage = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/garage/${userId}`
+      );
+      setGarage(response.data);
+      setCars(response.data.cars);
+      setUser(response.data.user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  //   React.useMemo(() => {
-  //     getGarage();
-  //   }, []);
+  React.useMemo(() => {
+    getGarage(userId);
+  }, [userId]);
 
   return (
     <div className={Styles.Garage}>
       <h1> Garage</h1>
-      {garage.map((car, index) => {
-        return <CarInGarage car={car} key={index} />;
-      })}
+      <div className={Styles.infoUser}>
+        <span> user: {user.email}</span>
+        <span> user: {user.name}</span>
+      </div>
+      <div className={Styles.infoCars}>
+        {cars !== []
+          ? cars.map((car, index) => {
+              return <CarInGarage car={car} key={index} />;
+            })
+          : null}
+      </div>
     </div>
   );
 }
