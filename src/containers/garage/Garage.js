@@ -2,9 +2,7 @@ import React from "react";
 import Styles from "./Garage.module.scss";
 import CarInGarage from "./CarInGarage/CarInGarage";
 import OwnerlessCars from "./OwnerlessCars/OwnerlessCars";
-
 import { useHistory, useParams } from "react-router-dom";
-
 import axios from "axios";
 
 export default function Garage() {
@@ -20,7 +18,6 @@ export default function Garage() {
       const response = await axios.get(
         `http://localhost:5000/garage/${userId}`
       );
-      console.log(response);
 
       setGarage(response.data);
       setCars(response.data.cars);
