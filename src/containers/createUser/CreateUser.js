@@ -6,11 +6,12 @@ import { Form, Field } from "react-final-form";
 import axios from "axios";
 
 export default function CreateUser() {
-  const postUser = async () => {
+  const postUser = async (value) => {
     try {
-      const response = await axios.post("http://localhost:5000/todos", {
-        description: "bibi",
-      });
+      const response = await axios.post(
+        "http://localhost:5000/add-user",
+        value
+      );
       console.log(response);
     } catch (e) {
       console.log(e);
@@ -18,8 +19,7 @@ export default function CreateUser() {
   };
 
   const onSubmit = async (value) => {
-    console.log(value);
-    postUser();
+    postUser(value);
   };
   return (
     <div className={Styles.User}>
@@ -31,7 +31,7 @@ export default function CreateUser() {
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <BootstrapForm.Group controlId="formBasicEmail">
-                <BootstrapForm.Label>Email address</BootstrapForm.Label>
+                <BootstrapForm.Label>Email </BootstrapForm.Label>
                 <Field name="email">
                   {({ input }) => (
                     <BootstrapForm.Control
@@ -46,13 +46,13 @@ export default function CreateUser() {
                 </Field>
               </BootstrapForm.Group>
               <BootstrapForm.Group controlId="formBasicPassword">
-                <BootstrapForm.Label>Password</BootstrapForm.Label>
-                <Field name="password">
+                <BootstrapForm.Label>Name</BootstrapForm.Label>
+                <Field name="name">
                   {({ input }) => (
                     <BootstrapForm.Control
-                      name="password"
-                      type="password"
-                      placeholder="Password"
+                      name="name"
+                      type="text"
+                      placeholder="Name"
                       onChange={(date) => {
                         input.onChange(date);
                       }}

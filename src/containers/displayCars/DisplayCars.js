@@ -23,7 +23,7 @@ export default function DisplayCars() {
     <div className={Styles.DisplayCars}>
       <h1> display cars</h1>
       {cars.map((car, index) => {
-        return <Car car={car} key={index} />;
+        return <Car car={car} getCars={getCars} key={index} />;
       })}
     </div>
   );
