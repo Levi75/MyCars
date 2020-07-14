@@ -23,9 +23,9 @@ function App() {
         <p>
           <Link to="/display-user">Display Users</Link>
         </p>
-        <p>
+        {/* <p>
           <Link to="/garage">Garage</Link>
-        </p>
+        </p> */}
       </div>
       <div>
         <Switch>
@@ -33,7 +33,7 @@ function App() {
           <Route path="/сreate-user" component={CreateUser} />
           <Route path="/display-car" component={DisplayCars} />
           <Route path="/display-user" component={DisplayUsers} />
-          <Route path="/garage" component={Garage} />
+          <Route path="/garage/:id" component={Garage} />
         </Switch>
       </div>
     </>

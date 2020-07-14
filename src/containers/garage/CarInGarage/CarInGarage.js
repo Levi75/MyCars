@@ -61,7 +61,7 @@ export default function CarInGarage({ car }) {
                     <BootstrapForm.Control
                       name="name"
                       type="text"
-                      placeholder={car.name}
+                      placeholder="Название"
                       onChange={(date) => {
                         input.onChange(date);
                       }}
@@ -77,7 +77,7 @@ export default function CarInGarage({ car }) {
                     <BootstrapForm.Control
                       name="price"
                       type="number"
-                      placeholder={car.price}
+                      placeholder="Цена"
                       onChange={(date) => {
                         input.onChange(date);
                       }}

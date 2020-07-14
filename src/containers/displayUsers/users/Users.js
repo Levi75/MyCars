@@ -4,6 +4,7 @@ import axios from "axios";
 import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
+import { Link } from "react-router-dom";
 
 export default function Users({ user, getUsers }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
@@ -44,6 +45,9 @@ export default function Users({ user, getUsers }) {
       </div>
       <button onClick={() => deleteCar(id)}> delete</button>
       <button onClick={() => setShowUpdate(!showUpdate)}> update</button>
+      <Link to={`garage/${user.user_id}`}>
+        <span>Перейти в гараж</span>
+      </Link>
 
       {showUpdate && (
         <Form
