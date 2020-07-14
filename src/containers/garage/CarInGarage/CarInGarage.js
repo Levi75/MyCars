@@ -15,7 +15,7 @@ export default function CarInGarage({ car }) {
 
   return (
     <div className={Styles.CarInGarage}>
-      <div>
+      <div className={Styles.CarInGarage_container}>
         <span> name: {car.name}</span>
         <span> price: {car.price}</span>
       </div>
