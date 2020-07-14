@@ -32,8 +32,8 @@ export default function Garage() {
     <div className={Styles.Garage}>
       <h1> Garage</h1>
       <div className={Styles.infoUser}>
-        <span> user: {user.email}</span>
-        <span> user: {user.name}</span>
+        <span> user email: {user.email}</span>
+        <span> user name: {user.name}</span>
       </div>
       <div className={Styles.infoCars}>
         {cars !== []
