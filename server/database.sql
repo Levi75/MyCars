@@ -26,3 +26,4 @@ ALTER TABLE cars DROP COLUMN user_id;
 //добавление столбца user_id в таблицу cars со связью с таблицей users столбцом user_id
 
 ALTER TABLE cars ADD COLUMN user_id INTEGER REFERENCES users(user_id);
+

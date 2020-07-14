@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./OwnerlessCars.module.scss";
 import axios from "axios";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function OwnerlessCars({ car }) {
   const userId = useParams().id;

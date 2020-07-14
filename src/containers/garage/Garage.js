@@ -2,7 +2,7 @@ import React from "react";
 import Styles from "./Garage.module.scss";
 import CarInGarage from "./CarInGarage/CarInGarage";
 import OwnerlessCars from "./OwnerlessCars/OwnerlessCars";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function Garage() {
