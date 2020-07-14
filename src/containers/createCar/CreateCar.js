@@ -19,7 +19,7 @@ export default function CreateCar() {
     }
   };
 
-  const getUsers = async () => {
+  const getUsers = React.useCallback(async () => {
     try {
       const Users = await axios.get("http://localhost:5000/all-users");
       console.log(Users);
@@ -28,11 +28,10 @@ export default function CreateCar() {
     } catch (e) {
       console.log(e);
     }
-  };
-
+  }, []);
   React.useEffect(() => {
     getUsers();
-  }, []);
+  }, [getUsers]);
 
   const onSubmit = async (value) => {
     createCars(value);

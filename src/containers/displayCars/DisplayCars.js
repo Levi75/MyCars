@@ -7,28 +7,28 @@ export default function DisplayCars() {
   const [cars, setCars] = React.useState([]);
   const [users, setUsers] = React.useState([]);
 
-  const getCars = async () => {
+  const getCars = React.useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/cars");
       setCars(response.data);
     } catch (e) {
       console.log(e);
     }
-  };
+  }, []);
 
-  const getUsers = async () => {
+  const getUsers = React.useCallback(async () => {
     try {
       const Users = await axios.get("http://localhost:5000/all-users");
       setUsers(Users.data);
     } catch (e) {
       console.log(e);
     }
-  };
-
+  }, []);
+  
   React.useEffect(() => {
     getCars();
     getUsers();
-  }, []);
+  }, [getCars, getUsers]);
 
   return (
     <div className={Styles.DisplayCars}>
