@@ -187,11 +187,7 @@ app.delete("/garage/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { carId } = req.body;
-
-    await pool.query(`UPDATE cars SET user_id = null WHERE  cars_id= $1`, [
-      carId,
-    ]);
+    await pool.query(`UPDATE cars SET user_id = null WHERE  cars_id= $1`, [id]);
 
     res.json("success");
   } catch (e) {
