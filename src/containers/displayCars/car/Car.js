@@ -5,7 +5,7 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 
-export default function Car({ car, getCars }) {
+export default function Car({ car, users, getCars }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   const id = car.cars_id;
@@ -20,13 +20,10 @@ export default function Car({ car, getCars }) {
   };
 
   const updateCar = async (value) => {
-    const { name, price } = value;
+    console.log(value, id);
 
     try {
-      await axios.put(`http://localhost:5000/cars/${id}`, {
-        name: name,
-        price,
-      });
+      await axios.put(`http://localhost:5000/cars/${id}`, value);
       return getCars();
     } catch (e) {
       return console.log(e);
@@ -34,6 +31,8 @@ export default function Car({ car, getCars }) {
   };
 
   const onSubmit = async (value) => {
+    console.log(value);
+
     updateCar(value);
   };
 
@@ -42,7 +41,7 @@ export default function Car({ car, getCars }) {
       <div>
         <span> name: {car.name}</span>
         <span> price: {car.price}</span>
-        <span> user: {car.user_id}</span>
+        {car.user_id && <span> user: {car.name}</span>}
       </div>
       <button onClick={() => deleteCar(car.cars_id)}> delete</button>
       <button onClick={() => setShowUpdate(!showUpdate)}> update</button>
@@ -60,7 +59,8 @@ export default function Car({ car, getCars }) {
                     <BootstrapForm.Control
                       name="name"
                       type="text"
-                      placeholder={car.name}
+                      placeholder="name"
+                      defaultValue={car.name}
                       onChange={(date) => {
                         input.onChange(date);
                       }}
@@ -77,14 +77,30 @@ export default function Car({ car, getCars }) {
                       name="price"
                       type="number"
                       placeholder="price"
+                      defaultValue={car.price}
                       onChange={(date) => {
                         input.onChange(date);
                       }}
-                      placeholder={car.price}
                     />
                   )}
                 </Field>
               </BootstrapForm.Group>
+              {!car.user_id && (
+                <BootstrapForm>
+                  <BootstrapForm.Group controlId="exampleForm.SelectCustom">
+                    <BootstrapForm.Label>Custom select</BootstrapForm.Label>
+                    <Field name="user_id" component="select">
+                      <option value={null}>{null}</option>
+                      {users &&
+                        users.map((user) => {
+                          return (
+                            <option value={user.user_id}>{user.name}</option>
+                          );
+                        })}
+                    </Field>
+                  </BootstrapForm.Group>
+                </BootstrapForm>
+              )}
 
               <Button variant="primary" type="submit">
                 Submit

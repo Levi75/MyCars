@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function DisplayCars() {
   const [cars, setCars] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
 
   const getCars = async () => {
     try {
@@ -15,15 +16,25 @@ export default function DisplayCars() {
     }
   };
 
-  React.useMemo(() => {
+  const getUsers = async () => {
+    try {
+      const Users = await axios.get("http://localhost:5000/all-users");
+      setUsers(Users.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  React.useEffect(() => {
     getCars();
+    getUsers();
   }, []);
 
   return (
     <div className={Styles.DisplayCars}>
       <h1> display cars</h1>
       {cars.map((car, index) => {
-        return <Car car={car} getCars={getCars} key={index} />;
+        return <Car car={car} getCars={getCars} users={users} key={index} />;
       })}
     </div>
   );

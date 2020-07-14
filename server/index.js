@@ -52,16 +52,21 @@ app.get("/cars/:id", async (req, res) => {
 app.put("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price } = req.body;
+    const { body } = req;
 
-    const strName = name ? `name = '${name}'` : "";
-    const strprice = price ? `price = '${price}'` : "";
-    const body =
-      name && price ? `${strName}, ${strprice}` : `${strName} ${strprice}`;
-    console.log(body);
+    Object.entries(body).map(async (params) => {
+      console.log(params);
 
-    await pool.query(`UPDATE cars SET ${body} WHERE cars_id=${id}`);
-    res.json("Car was Updated");
+      if (params[1] === undefined || params[1] === null) {
+        return;
+      }
+      return await pool.query(
+        `UPDATE cars SET ${params[0]} = $1 WHERE cars_id = $2`,
+        [params[1], id]
+      );
+    });
+
+    res.json("success");
   } catch (err) {
     console.error(err.massage);
   }
