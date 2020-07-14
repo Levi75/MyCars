@@ -22,7 +22,7 @@ export default function Garage() {
 
   return (
     <div className={Styles.Garage}>
-      <h1> display grage</h1>
+      <h1> Garage</h1>
       {garage.map((car, index) => {
         return <CarInGarage car={car} key={index} />;
       })}
