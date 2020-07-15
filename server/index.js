@@ -213,14 +213,25 @@ app.get("/users/:id/garage", async (req, res) => {
 app.get("/users/:id/garage/other", async (req, res) => {
   try {
     const { id } = req.params;
-    const garage = await pool.query(
-      `SELECT * FROM garage g
+    let garage = await pool.query(
+      `SELECT car_id FROM garage g
       INNER JOIN user  ON user_id = ${id}
-      INNER JOIN cars c ON NOT(c.id = g.car_id)
       `
     );
+    garage = garage.rows;
+    let carsGarageId = [];
+    garage.map((car) => {
+      carsGarageId.push(car.car_id);
+    });
 
-    res.json({ garage: garage.rows });
+    let cars = await pool.query(`SELECT * FROM cars`);
+    cars = cars.rows;
+    const resolve = cars.filter((car) => {
+      const c = car.id;
+      return !carsGarageId.includes(c);
+    });
+
+    res.json({ cars: resolve });
   } catch (e) {
     console.error(e.massage);
   }
@@ -238,5 +249,3 @@ app.delete("/users/:id/garage/delete", async (req, res) => {
     console.error(err.massage);
   }
 });
-
-
