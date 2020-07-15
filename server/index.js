@@ -182,18 +182,12 @@ app.listen(5000, () => {
 app.post("/users/:id/garage/car", async (req, res) => {
   try {
     const { id } = req.params;
-<<<<<<< HEAD
-    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-
-    const cars = await pool.query("SELECT * FROM cars WHERE id = $1", [id]);
-=======
     const { car_id } = req.body;
 
     const CreateUser = await pool.query(
       "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
       [id, car_id]
     );
->>>>>>> 8a4169dd34cf9724927a805b79fa416567cafd10
 
     res.json(CreateUser.rows);
   } catch (e) {
@@ -211,13 +205,7 @@ app.get("/users/:id/garage", async (req, res) => {
       `
     );
 
-<<<<<<< HEAD
-    await pool.query(`UPDATE cars SET id = null WHERE  id= $1`, [id]);
-
-    res.json("success");
-=======
     res.json({ garage: garage.rows });
->>>>>>> 8a4169dd34cf9724927a805b79fa416567cafd10
   } catch (e) {
     console.error(e.massage);
   }

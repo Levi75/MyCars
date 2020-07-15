@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./DisplayUsers.module.scss";
-import Users from "./users/Users";
+import Users from "./Users/Users";
 import axios from "axios";
 import { MDBRow } from "mdbreact";
 
