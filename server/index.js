@@ -210,42 +210,33 @@ app.get("/users/:id/garage", async (req, res) => {
   }
 });
 
+app.get("/users/:id/garage/other", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const garage = await pool.query(
+      `SELECT * FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      INNER JOIN cars c ON NOT(c.id = g.car_id)
+      `
+    );
+
+    res.json({ garage: garage.rows });
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
+
 app.delete("/users/:id/garage/delete", async (req, res) => {
   try {
     const { id } = req.params;
-
-    await pool.query(`UPDATE cars SET user_id = null WHERE  cars_id= $1`, [id]);
-
-    res.json("success");
-  } catch (e) {
-    console.error(e.massage);
+    const { car_id } = req.body;
+    await pool.query(
+      `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
+    );
+    res.json("success delete car in garage");
+  } catch (err) {
+    console.error(err.massage);
   }
 });
 
-//нужно подумать над этими запросами
-app.get("/garage-cars", async (req, res) => {
-  try {
-    const cars = await pool.query(`SELECT * FROM cars WHERE user_id IS NULL`);
 
-    res.json(cars.rows);
-  } catch (e) {
-    console.error(e.massage);
-  }
-});
-
-app.put("/garage/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const { carId } = req.body;
-
-    await pool.query(`UPDATE cars SET user_id =$1  WHERE  cars_id= $2`, [
-      id,
-      carId,
-    ]);
-
-    res.json("success");
-  } catch (e) {
-    console.error(e.massage);
-  }
-});
