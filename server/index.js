@@ -21,11 +21,12 @@ app.post("/cars/add", async (req, res) => {
       model,
       boxType,
       engineCapacity,
+      img,
     } = req.body;
 
     const newCar = await pool.query(
-      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
-      [name, price, year, brand, model, boxType, engineCapacity]
+      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity, img) VALUES($1,$2,$3,$4,$5,$6,$7, $8) RETURNING *;",
+      [name, price, year, brand, model, boxType, engineCapacity, img]
     );
 
     res.json(newCar.rows[0]);
@@ -178,15 +179,72 @@ app.listen(5000, () => {
 });
 
 // Routes GARAGE
+app.post("/users/:id/garage/car", async (req, res) => {
+  try {
+    const { id } = req.params;
+<<<<<<< HEAD
+    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+
+    const cars = await pool.query("SELECT * FROM cars WHERE id = $1", [id]);
+=======
+    const { car_id } = req.body;
+
+    const CreateUser = await pool.query(
+      "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
+      [id, car_id]
+    );
+>>>>>>> 8a4169dd34cf9724927a805b79fa416567cafd10
+
+    res.json(CreateUser.rows);
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
 
 app.get("/users/:id/garage", async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    const garage = await pool.query(
+      `SELECT * FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      INNER JOIN cars c ON c.id = g.car_id
+      `
+    );
 
-    const cars = await pool.query("SELECT * FROM cars WHERE id = $1", [id]);
+<<<<<<< HEAD
+    await pool.query(`UPDATE cars SET id = null WHERE  id= $1`, [id]);
 
-    res.json({ user: user.rows[0], cars: cars.rows });
+    res.json("success");
+=======
+    res.json({ garage: garage.rows });
+>>>>>>> 8a4169dd34cf9724927a805b79fa416567cafd10
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
+
+app.get("/users/:id/garage/other", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let garage = await pool.query(
+      `SELECT car_id FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      `
+    );
+    garage = garage.rows;
+    let carsGarageId = [];
+    garage.map((car) => {
+      carsGarageId.push(car.car_id);
+    });
+
+    let cars = await pool.query(`SELECT * FROM cars`);
+    cars = cars.rows;
+    const resolve = cars.filter((car) => {
+      const c = car.id;
+      return !carsGarageId.includes(c);
+    });
+
+    res.json({ cars: resolve });
   } catch (e) {
     console.error(e.massage);
   }
@@ -195,39 +253,12 @@ app.get("/users/:id/garage", async (req, res) => {
 app.delete("/users/:id/garage/delete", async (req, res) => {
   try {
     const { id } = req.params;
-
-    await pool.query(`UPDATE cars SET id = null WHERE  id= $1`, [id]);
-
-    res.json("success");
-  } catch (e) {
-    console.error(e.massage);
-  }
-});
-
-//нужно подумать над этими запросами
-app.get("/garage-cars", async (req, res) => {
-  try {
-    const cars = await pool.query(`SELECT * FROM cars WHERE user_id IS NULL`);
-
-    res.json(cars.rows);
-  } catch (e) {
-    console.error(e.massage);
-  }
-});
-
-app.put("/garage/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const { carId } = req.body;
-
-    await pool.query(`UPDATE cars SET user_id =$1  WHERE  cars_id= $2`, [
-      id,
-      carId,
-    ]);
-
-    res.json("success");
-  } catch (e) {
-    console.error(e.massage);
+    const { car_id } = req.body;
+    await pool.query(
+      `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
+    );
+    res.json("success delete car in garage");
+  } catch (err) {
+    console.error(err.massage);
   }
 });

@@ -30,6 +30,8 @@ DROP TABLE cars;
 //добавление столбца user_id в таблицу cars
 ALTER TABLE cars ADD COLUMN user_id SERIAL PRIMARY KEY; 
 
+ALTER TABLE cars ADD COLUMN img VARCHAR(250); 
+
 
 //удаление столбца user_id в таблице cars
 ALTER TABLE cars DROP COLUMN user_id; 
@@ -38,3 +40,8 @@ ALTER TABLE cars DROP COLUMN user_id;
 
 ALTER TABLE cars ADD COLUMN user_id INTEGER REFERENCES users(user_id);
 
+
+
+SELECT p.id, p.name `Имя сотрудника`, ps.id `pos.id`, ps.name `Должность`
+FROM `persons` p
+INNER JOIN `positions` ps ON ps.id = p.post_id
