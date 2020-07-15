@@ -13,11 +13,19 @@ app.use(express.json());
 
 app.post("/cars/add", async (req, res) => {
   try {
-    const { name, price, year, brand, model, boxType, engineCapacity } = req.body;
+    const {
+      name,
+      price,
+      year,
+      brand,
+      model,
+      boxType,
+      engineCapacity,
+    } = req.body;
 
     const newCar = await pool.query(
       "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
-      [name, price, year, brand, model, boxType, engineCapacity ]
+      [name, price, year, brand, model, boxType, engineCapacity]
     );
 
     res.json(newCar.rows[0]);
@@ -170,19 +178,33 @@ app.listen(5000, () => {
 });
 
 // Routes GARAGE
+app.post("/users/:id/garage/car", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { car_id } = req.body;
+
+    const CreateUser = await pool.query(
+      "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
+      [id, car_id]
+    );
+
+    res.json(CreateUser.rows);
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
 
 app.get("/users/:id/garage", async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-      id,
-    ]);
+    const garage = await pool.query(
+      `SELECT * FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      INNER JOIN cars c ON c.id = g.car_id
+      `
+    );
 
-    const cars = await pool.query("SELECT * FROM cars WHERE user_id = $1", [
-      id,
-    ]);
-
-    res.json({ user: user.rows[0], cars: cars.rows });
+    res.json({ garage: garage.rows });
   } catch (e) {
     console.error(e.massage);
   }
