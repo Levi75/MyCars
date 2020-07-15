@@ -4,21 +4,13 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
-import {
-  MDBCol,
-  MDBInput,
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBContainer,
-  MDBRow,
-} from "mdbreact";
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 export default function CreateUser() {
   const postUser = async (value) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/add-user",
+        "http://localhost:5000/users/add",
         value
       );
       console.log(response);
@@ -40,7 +32,7 @@ export default function CreateUser() {
             <div className={Styles.Form__Create_User}>
               <MDBCard>
                 <MDBCardBody>
-                  <p className="h4 text-center py-4">Sign up</p>
+                  <p className="h4 text-center py-4">Создание пользователя</p>
                   <div className="grey-text">
                     <Field name="email">
                       {({ input }) => (
@@ -53,7 +45,7 @@ export default function CreateUser() {
                           type="email"
                           error="wrong"
                           success="right"
-                          placeholder="Enter email"
+                          placeholder="Email"
                           onChange={(date) => {
                             input.onChange(date);
                           }}
@@ -72,7 +64,7 @@ export default function CreateUser() {
                           group
                           name="name"
                           type="text"
-                          placeholder="Name"
+                          placeholder="Имя"
                           onChange={(date) => {
                             input.onChange(date);
                           }}
@@ -81,8 +73,8 @@ export default function CreateUser() {
                     </Field>
                   </div>
                   <div className="text-center py-4 mt-3">
-                    <MDBBtn color="cyan" type="submit">
-                      Register
+                    <MDBBtn color="blue darken-3" type="submit">
+                      Добавить пользователя
                     </MDBBtn>
                   </div>
                 </MDBCardBody>
