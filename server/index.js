@@ -7,6 +7,9 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json());
 
+app.listen(5000, () => {
+  console.log("servre has started on port 5000");
+});
 //ROUTES//
 
 //create a cars
@@ -50,7 +53,7 @@ app.get("/cars/list", async (req, res) => {
 app.get("/cars/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const car = await pool.query("SELECT * FROM cars WHERE cars_id=$1", [id]);
+    const car = await pool.query(`SELECT * FROM cars WHERE id=${id}`);
     res.json(car.rows[0]);
   } catch (err) {
     console.error(err.massage);
@@ -70,8 +73,7 @@ app.put("/cars/update/:id", async (req, res) => {
         return;
       }
       return await pool.query(
-        `UPDATE cars SET ${params[0]} = $1 WHERE cars_id = $2`,
-        [params[1], id]
+        `UPDATE cars SET ${params[0]} = ${params[1]} WHERE id = ${id}`
       );
     });
 
@@ -86,7 +88,7 @@ app.delete("/cars/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    await pool.query("DELETE FROM cars WHERE cars_id=$1", [id]);
+    await pool.query(`DELETE FROM cars WHERE id=${id}`);
     res.json("Car was deleted!");
   } catch (err) {
     console.error(err.massage);
@@ -99,16 +101,14 @@ app.post("/users/add", async (req, res) => {
   try {
     const { name, email } = req.body;
     const checkEmail = await pool.query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
+      `SELECT * FROM users WHERE email = ${email}`
     );
     if (checkEmail.rows[0]) {
       res.json("Такой эмаил уже существует");
       return;
     }
     const CreateUser = await pool.query(
-      "INSERT INTO users(name,email) VALUES($1,$2) RETURNING *",
-      [name, email]
+      `INSERT INTO users(name,email) VALUES(${name},${email}) RETURNING *`
     );
     res.json(CreateUser.rows[0]);
   } catch (e) {
@@ -128,9 +128,7 @@ app.get("/users/list", async (req, res) => {
 app.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-      id,
-    ]);
+    const user = await pool.query(`SELECT * FROM users WHERE id = ${id}`);
     res.json(user.rows[0]);
   } catch (e) {
     console.error(e.massage);
@@ -140,19 +138,15 @@ app.get("/users/:id", async (req, res) => {
 app.put("/users/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
+
     const { body } = req;
-    console.log(body);
 
     Object.entries(body).map(async (params) => {
-      console.log(params);
-
       if (params[1] === undefined || params[1] === null) {
         return;
       }
       return await pool.query(
-        `UPDATE users SET ${params[0]} = $1 WHERE id = $2`,
-        [params[1], id]
+        `UPDATE users SET ${params[0]} = ${params[1]} WHERE user_id = ${id}`
       );
     });
 
@@ -165,17 +159,13 @@ app.put("/users/update/:id", async (req, res) => {
 app.delete("/users/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
-      id,
-    ]);
+    const deleteUser = await pool.query(
+      `DELETE FROM users WHERE user_id = ${id}`
+    );
     res.json("success");
   } catch (e) {
     console.error(e.massage);
   }
-});
-
-app.listen(5000, () => {
-  console.log("servre has started on port 5000");
 });
 
 // Routes GARAGE
