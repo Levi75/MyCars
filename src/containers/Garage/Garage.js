@@ -51,7 +51,7 @@ export default function Garage() {
           <button onClick={getCars}> Add car</button>
         </div>
         <div className={Styles.infoCars}>
-          {cars !== []
+          {cars.length !== 0
             ? cars.map((car, index) => {
                 return <CarInGarage car={car} key={index} />;
               })
@@ -59,7 +59,7 @@ export default function Garage() {
         </div>
       </div>
       <div>
-        {ownerlessCars !== []
+        {ownerlessCars.length !== 0
           ? ownerlessCars.map((car, index) => {
               return (
                 <div>
