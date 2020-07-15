@@ -4,7 +4,15 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import {
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBContainer,
+  MDBRow,
+} from "mdbreact";
 
 export default function CreateUser() {
   const postUser = async (value) => {
@@ -28,8 +36,8 @@ export default function CreateUser() {
         onSubmit={onSubmit}
         initialValues={{}}
         render={({ handleSubmit }) => (
-          <form className={Styles.FormUser} onSubmit={handleSubmit}>
-            <MDBCol md="6">
+          <form className={Styles.Form} onSubmit={handleSubmit}>
+            <div className={Styles.Form__Create_User}>
               <MDBCard>
                 <MDBCardBody>
                   <p className="h4 text-center py-4">Sign up</p>
@@ -79,7 +87,7 @@ export default function CreateUser() {
                   </div>
                 </MDBCardBody>
               </MDBCard>
-            </MDBCol>
+            </div>
           </form>
         )}
       />
