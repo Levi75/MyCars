@@ -5,16 +5,25 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import { Link } from "react-router-dom";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBBtn,
+  MDBInput,
+  MDBCol,
+  MDBIcon,
+} from "mdbreact";
 
 export default function Users({ user, getUsers }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
-  console.log(user);
-
-  const id = user.user_id;
 
   const deleteCar = async (id) => {
+    console.log(id);
+
     try {
-      await axios.delete(`http://localhost:5000/delete-user/${id}`);
+      await axios.delete(`http://localhost:5000/users/delete/${id}`);
       getUsers();
     } catch (e) {
       console.log(e);
@@ -24,7 +33,7 @@ export default function Users({ user, getUsers }) {
   const updateCar = async (value) => {
     const { name } = value;
     try {
-      await axios.put(`http://localhost:5000/change-user/${id}`, {
+      await axios.put(`http://localhost:5000/users/update/${user.id}`, {
         name: name,
       });
       getUsers();
@@ -34,22 +43,65 @@ export default function Users({ user, getUsers }) {
   };
 
   const onSubmit = async (value) => {
-    updateCar(value);
+    setShowUpdate(!showUpdate);
+    await updateCar(value);
   };
 
   return (
-    <div className={Styles.User}>
-      <div>
-        <span> name: {user.name}</span>
-        <span> email: {user.email}</span>
-      </div>
-      <button onClick={() => deleteCar(id)}> delete</button>
-      <button onClick={() => setShowUpdate(!showUpdate)}> update</button>
-      <Link to={`garage/${user.user_id}`}>
-        <span>Перейти в гараж</span>
-      </Link>
+    <MDBCol className="p-3 col-md-12 ">
+      <MDBCard className="col-md-4 rounded mx-auto d-block">
+        <MDBCardBody>
+          <MDBCardTitle>Email: {user.email}</MDBCardTitle>
+          {showUpdate ? (
+            <Form
+              onSubmit={onSubmit}
+              initialValues={{}}
+              render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                  <Field name="name">
+                    {({ input }) => (
+                      <MDBInput
+                        label="Имя"
+                        name="name"
+                        type="text"
+                        valueDefault={user.name}
+                        onChange={(date) => {
+                          input.onChange(date);
+                        }}
+                      />
+                    )}
+                  </Field>
+                  <MDBBtn color="light-blue" type="submit">
+                    Сохранить изменения
+                  </MDBBtn>
+                </form>
+              )}
+            />
+          ) : (
+            <MDBCardTitle>Имя: {user.name}</MDBCardTitle>
+          )}
 
-      {showUpdate && (
+          <hr />
+          <MDBBtn color="red" onClick={() => deleteCar(user.id)}>
+            Удалить
+          </MDBBtn>
+          <MDBBtn color="green" onClick={() => setShowUpdate(!showUpdate)}>
+            Редактировать
+          </MDBBtn>
+          <Link
+            to={`garage/${user.user_id}`}
+            className="black-text d-flex justify-content-end"
+          >
+            <h5>
+              В гараж
+              <MDBIcon icon="angle-double-right" className="ml-2" />
+            </h5>
+          </Link>
+        </MDBCardBody>
+      </MDBCard>
+    </MDBCol>
+
+    /* {showUpdate && (
         <Form
           onSubmit={onSubmit}
           initialValues={{}}
@@ -77,7 +129,6 @@ export default function Users({ user, getUsers }) {
             </form>
           )}
         />
-      )}
-    </div>
+      )} */
   );
 }

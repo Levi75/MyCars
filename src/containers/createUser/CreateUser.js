@@ -46,8 +46,8 @@ export default function CreateUser() {
                           error="wrong"
                           success="right"
                           placeholder="Email"
-                          onChange={(date) => {
-                            input.onChange(date);
+                          onChange={(data) => {
+                            input.onChange(data);
                           }}
                         />
                       )}
@@ -65,8 +65,8 @@ export default function CreateUser() {
                           name="name"
                           type="text"
                           placeholder="Имя"
-                          onChange={(date) => {
-                            input.onChange(date);
+                          onChange={(data) => {
+                            input.onChange(data);
                           }}
                         />
                       )}

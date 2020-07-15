@@ -13,11 +13,19 @@ app.use(express.json());
 
 app.post("/cars/add", async (req, res) => {
   try {
-    const { name, price, year, brand, model, boxType, engineCapacity } = req.body;
+    const {
+      name,
+      price,
+      year,
+      brand,
+      model,
+      boxType,
+      engineCapacity,
+    } = req.body;
 
     const newCar = await pool.query(
       "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
-      [name, price, year, brand, model, boxType, engineCapacity ]
+      [name, price, year, brand, model, boxType, engineCapacity]
     );
 
     res.json(newCar.rows[0]);
@@ -95,6 +103,7 @@ app.post("/users/add", async (req, res) => {
     );
     if (checkEmail.rows[0]) {
       res.json("Такой эмаил уже существует");
+      return;
     }
     const CreateUser = await pool.query(
       "INSERT INTO users(name,email) VALUES($1,$2) RETURNING *",
@@ -141,7 +150,7 @@ app.put("/users/update/:id", async (req, res) => {
         return;
       }
       return await pool.query(
-        `UPDATE users SET ${params[0]} = $1 WHERE user_id = $2`,
+        `UPDATE users SET ${params[0]} = $1 WHERE id = $2`,
         [params[1], id]
       );
     });
@@ -155,10 +164,9 @@ app.put("/users/update/:id", async (req, res) => {
 app.delete("/users/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteUser = await pool.query(
-      "DELETE FROM users WHERE user_id = $1",
-      [id]
-    );
+    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
+      id,
+    ]);
     res.json("success");
   } catch (e) {
     console.error(e.massage);
@@ -174,13 +182,9 @@ app.listen(5000, () => {
 app.get("/users/:id/garage", async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-      id,
-    ]);
+    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
 
-    const cars = await pool.query("SELECT * FROM cars WHERE user_id = $1", [
-      id,
-    ]);
+    const cars = await pool.query("SELECT * FROM cars WHERE id = $1", [id]);
 
     res.json({ user: user.rows[0], cars: cars.rows });
   } catch (e) {
@@ -192,7 +196,7 @@ app.delete("/users/:id/garage/delete", async (req, res) => {
   try {
     const { id } = req.params;
 
-    await pool.query(`UPDATE cars SET user_id = null WHERE  cars_id= $1`, [id]);
+    await pool.query(`UPDATE cars SET id = null WHERE  id= $1`, [id]);
 
     res.json("success");
   } catch (e) {
