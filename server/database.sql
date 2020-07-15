@@ -30,6 +30,8 @@ DROP TABLE cars;
 //добавление столбца user_id в таблицу cars
 ALTER TABLE cars ADD COLUMN user_id SERIAL PRIMARY KEY; 
 
+ALTER TABLE cars ADD COLUMN img VARCHAR(250); 
+
 
 //удаление столбца user_id в таблице cars
 ALTER TABLE cars DROP COLUMN user_id; 

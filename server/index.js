@@ -21,11 +21,12 @@ app.post("/cars/add", async (req, res) => {
       model,
       boxType,
       engineCapacity,
+      img,
     } = req.body;
 
     const newCar = await pool.query(
-      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
-      [name, price, year, brand, model, boxType, engineCapacity]
+      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity, img) VALUES($1,$2,$3,$4,$5,$6,$7, $8) RETURNING *;",
+      [name, price, year, brand, model, boxType, engineCapacity, img]
     );
 
     res.json(newCar.rows[0]);
