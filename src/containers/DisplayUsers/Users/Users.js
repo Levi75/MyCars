@@ -89,7 +89,7 @@ export default function Users({ user, getUsers }) {
             Редактировать
           </MDBBtn>
           <Link
-            to={`garage/${user.user_id}`}
+            to={`garage/${user.id}`}
             className="black-text d-flex justify-content-end"
           >
             <h5>
