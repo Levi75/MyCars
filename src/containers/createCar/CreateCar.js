@@ -4,6 +4,7 @@ import BootstrapForm from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 export default function CreateCar() {
   // const [name, setName] = React.useState("");
@@ -38,66 +39,150 @@ export default function CreateCar() {
   };
   return (
     <div className={Styles.Car}>
-      <div className={Styles.Car_container}>
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{}}
-          render={({ handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <BootstrapForm.Group controlId="name">
-                <BootstrapForm.Label>Car name</BootstrapForm.Label>
-                <Field name="name">
-                  {({ input }) => (
-                    <BootstrapForm.Control
-                      name="name"
-                      type="text"
-                      placeholder="Enter car name"
-                      onChange={(date) => {
-                        input.onChange(date);
-                      }}
-                    />
-                  )}
-                </Field>
-              </BootstrapForm.Group>
-
-              <BootstrapForm.Group controlId="price">
-                <BootstrapForm.Label>price $</BootstrapForm.Label>
-                <Field name="price">
-                  {({ input }) => (
-                    <BootstrapForm.Control
-                      name="price"
-                      type="number"
-                      placeholder="price"
-                      onChange={(date) => {
-                        input.onChange(date);
-                      }}
-                    />
-                  )}
-                </Field>
-              </BootstrapForm.Group>
-
-              <BootstrapForm>
-                <BootstrapForm.Group controlId="exampleForm.SelectCustom">
-                  <BootstrapForm.Label>Custom select</BootstrapForm.Label>
-                  <Field name="user_id" component="select">
-                    <option value={null}>{null}</option>
-                    {users &&
-                      users.map((user) => {
-                        return (
-                          <option value={user.user_id}>{user.name}</option>
-                        );
-                      })}
-                  </Field>
-                </BootstrapForm.Group>
-              </BootstrapForm>
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </form>
-          )}
-        />
-      </div>
+      <Form
+        onSubmit={onSubmit}
+        initialValues={{}}
+        render={({ handleSubmit }) => (
+          <form onSubmit={handleSubmit} className={Styles.Form}>
+            <div className={Styles.Form__Create_User}>
+              <MDBCard>
+                <MDBCardBody>
+                  <p className="h4 text-center py-4">Создание машины</p>
+                  <div className="grey-text">
+                    <Field name="name">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Имя"
+                          icon="user"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="name"
+                          type="text"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="price">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Цена"
+                          icon="dollar-sign"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="price"
+                          type="text"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="year">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Дата"
+                          icon="calendar-alt"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="year"
+                          type="text"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="brand">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Марка"
+                          icon="bimobject"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="brand"
+                          type="text"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="model">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Модель"
+                          icon="car"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="model"
+                          type="text"
+                          placeholder="Имя"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="boxType">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Тип коробки"
+                          icon="map-pin"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="boxType"
+                          type="text"
+                          placeholder="Имя"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                    <Field name="engineCapacity">
+                      {({ input }) => (
+                        <MDBInput
+                          label="Мощность двигателя"
+                          icon="chart-line"
+                          validate
+                          error="wrong"
+                          success="right"
+                          group
+                          name="engineCapacity"
+                          type="text"
+                          placeholder="Имя"
+                          onChange={(date) => {
+                            input.onChange(date);
+                          }}
+                        />
+                      )}
+                    </Field>
+                  </div>
+                  <div className="text-center py-4 mt-3">
+                    <MDBBtn color="blue darken-3" type="submit">
+                      Добавить машину
+                    </MDBBtn>
+                  </div>
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+          </form>
+        )}
+      />
     </div>
   );
 }
