@@ -11,13 +11,13 @@ app.use(express.json());
 
 //create a cars
 
-app.post("/cars", async (req, res) => {
+app.post("/cars/add", async (req, res) => {
   try {
-    const { name, price, user_id } = req.body;
+    const { name, price, year, brand, model, boxType, engineCapacity } = req.body;
 
     const newCar = await pool.query(
-      "INSERT INTO cars(name,price,user_id) VALUES($1,$2,$3) RETURNING *;",
-      [name, price, user_id]
+      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
+      [name, price, year, brand, model, boxType, engineCapacity ]
     );
 
     res.json(newCar.rows[0]);
@@ -28,7 +28,7 @@ app.post("/cars", async (req, res) => {
 
 //get all cars
 
-app.get("/cars", async (req, res) => {
+app.get("/cars/list", async (req, res) => {
   try {
     const allCars = await pool.query("SELECT * FROM cars");
     res.json(allCars.rows);
@@ -49,7 +49,7 @@ app.get("/cars/:id", async (req, res) => {
 });
 
 //update a car
-app.put("/cars/:id", async (req, res) => {
+app.put("/cars/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
@@ -73,7 +73,7 @@ app.put("/cars/:id", async (req, res) => {
 });
 
 //delete a car
-app.delete("/cars/:id", async (req, res) => {
+app.delete("/cars/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -86,7 +86,7 @@ app.delete("/cars/:id", async (req, res) => {
 
 // user routes //
 
-app.post("/add-user", async (req, res) => {
+app.post("/users/add", async (req, res) => {
   try {
     const { name, email } = req.body;
     const checkEmail = await pool.query(
@@ -106,7 +106,7 @@ app.post("/add-user", async (req, res) => {
   }
 });
 
-app.get("/all-users", async (req, res) => {
+app.get("/users/list", async (req, res) => {
   try {
     const allPerntodo = await pool.query("SELECT * FROM users");
     res.json(allPerntodo.rows);
@@ -115,7 +115,7 @@ app.get("/all-users", async (req, res) => {
   }
 });
 
-app.get("/user/:id", async (req, res) => {
+app.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
@@ -127,7 +127,7 @@ app.get("/user/:id", async (req, res) => {
   }
 });
 
-app.put("/change-user/:id", async (req, res) => {
+app.put("/users/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id);
@@ -152,7 +152,7 @@ app.put("/change-user/:id", async (req, res) => {
   }
 });
 
-app.delete("/delete-user/:id", async (req, res) => {
+app.delete("/users/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteUser = await pool.query(
@@ -171,7 +171,7 @@ app.listen(5000, () => {
 
 // Routes GARAGE
 
-app.get("/garage/:id", async (req, res) => {
+app.get("/users/:id/garage", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
@@ -188,7 +188,7 @@ app.get("/garage/:id", async (req, res) => {
   }
 });
 
-app.delete("/garage/:id", async (req, res) => {
+app.delete("/users/:id/garage/delete", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -200,6 +200,7 @@ app.delete("/garage/:id", async (req, res) => {
   }
 });
 
+//нужно подумать над этими запросами
 app.get("/garage-cars", async (req, res) => {
   try {
     const cars = await pool.query(`SELECT * FROM cars WHERE user_id IS NULL`);
