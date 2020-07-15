@@ -8,6 +8,7 @@ import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 export default function CreateUser() {
   const postUser = async (value) => {
+    console.log(value);
     try {
       const response = await axios.post(
         "http://localhost:5000/users/add",
