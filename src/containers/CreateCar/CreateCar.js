@@ -1,38 +1,62 @@
 import React from "react";
 import Styles from "./CreateCar.module.scss";
-import BootstrapForm from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 
 export default function CreateCar() {
-  // const [name, setName] = React.useState("");
-  // const [price, setprice] = React.useState("");
   const [users, setUsers] = React.useState();
   console.log(users);
-
+  const years = [
+    "1980",
+    "1981",
+    "1982",
+    "1983",
+    "1984",
+    "1985",
+    "1986",
+    "1987",
+    "1988",
+    "1989",
+    "1990",
+    "1991",
+    "1992",
+    "1993",
+    "1994",
+    "1995",
+    "1996",
+    "1997",
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+  ];
   const createCars = async (value) => {
     try {
-      await axios.post("http://localhost:5000/cars", value);
+      await axios.post("http://localhost:5000/cars/add", value);
     } catch (e) {
       console.log(e);
     }
   };
-
-  const getUsers = React.useCallback(async () => {
-    try {
-      const Users = await axios.get("http://localhost:5000/all-users");
-      console.log(Users);
-
-      setUsers(Users.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
-  React.useEffect(() => {
-    getUsers();
-  }, [getUsers]);
 
   const onSubmit = async (value) => {
     createCars(value);
@@ -76,7 +100,7 @@ export default function CreateCar() {
                           success="right"
                           group
                           name="price"
-                          type="text"
+                          type="number"
                           onChange={(date) => {
                             input.onChange(date);
                           }}
@@ -85,9 +109,8 @@ export default function CreateCar() {
                     </Field>
                     <Field name="year">
                       {({ input }) => (
-                        <MDBInput
-                          label="Дата"
-                          icon="calendar-alt"
+                        <select
+                          className="browser-default custom-select"
                           validate
                           error="wrong"
                           success="right"
@@ -97,9 +120,17 @@ export default function CreateCar() {
                           onChange={(date) => {
                             input.onChange(date);
                           }}
-                        />
+                        >
+                          <option value={""}>Год выпуска</option>
+                          {years.map((year) => {
+                            return (
+                              <option value={`${year}-01-01`}>{year}</option>
+                            );
+                          })}
+                        </select>
                       )}
                     </Field>
+
                     <Field name="brand">
                       {({ input }) => (
                         <MDBInput
@@ -137,20 +168,32 @@ export default function CreateCar() {
                     </Field>
                     <Field name="boxType">
                       {({ input }) => (
-                        <MDBInput
-                          label="Тип коробки"
-                          icon="map-pin"
+                        <select
+                          className="browser-default custom-select"
                           validate
                           error="wrong"
                           success="right"
                           group
                           name="boxType"
                           type="text"
-                          placeholder="Имя"
                           onChange={(date) => {
                             input.onChange(date);
                           }}
-                        />
+                        >
+                          <option value={""}>Тип коробки передач</option>
+                          <option value={"Manual transmission"}>
+                            Механическая коробка
+                          </option>
+                          <option value={"Automatic transmission"}>
+                            Автоматическая коробка
+                          </option>
+                          <option value={"Robotic gearbox"}>
+                            Роботизированная коробк
+                          </option>
+                          <option value={"Variable transmission"}>
+                            Вариативная коробка
+                          </option>
+                        </select>
                       )}
                     </Field>
                     <Field name="engineCapacity">
@@ -163,7 +206,7 @@ export default function CreateCar() {
                           success="right"
                           group
                           name="engineCapacity"
-                          type="text"
+                          type="number"
                           placeholder="Имя"
                           onChange={(date) => {
                             input.onChange(date);

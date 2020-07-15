@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 export default function Car({ car, getCars }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
-  let year = car.year.split("-")[0];
+  let year = car.year && car.year.split("-")[0];
 
   const id = car.cars_id;
 
@@ -55,7 +55,7 @@ export default function Car({ car, getCars }) {
               width={500}
               top
               // src={car.img}
-              src = "https://img.drive.ru/i/0/5e4ffa3dec05c4f149000015.jpg"
+              src="https://img.drive.ru/i/0/5e4ffa3dec05c4f149000015.jpg"
               overlay="white-slight"
               hover
               waves

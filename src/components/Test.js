@@ -1,47 +1,37 @@
 import React from "react";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+} from "mdbreact";
 
-const FormPage = () => {
+const CardExample = () => {
   return (
-    // <MDBContainer>
-    //   <MDBRow>
-    <MDBCol md="6">
-      <MDBCard>
-        <MDBCardBody>
-          <form>
-            <p className="h4 text-center py-4">Sign up</p>
-            <div className="grey-text">
-              <MDBInput
-                label="Your name"
-                icon="user"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                label="Your email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
-              />
-            </div>
-            <div className="text-center py-4 mt-3">
-              <MDBBtn color="cyan" type="submit">
-                Register
-              </MDBBtn>
-            </div>
-          </form>
-        </MDBCardBody>
-      </MDBCard>
-    </MDBCol>
-    //   </MDBRow>
-    // </MDBContainer>
+    <MDBRow>
+      <MDBCol md="4">
+        <MDBCard>
+          <MDBCardBody>
+            <MDBCardTitle>Card Title</MDBCardTitle>
+            <hr />
+            <MDBCardText>
+              Some quick example text to build on the card title and make up the
+              bulk of the card&apos;s content.
+            </MDBCardText>
+            <a href="#!" className="black-text d-flex justify-content-end">
+              <h5>
+                Read more
+                <MDBIcon icon="angle-double-right" className="ml-2" />
+              </h5>
+            </a>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
   );
 };
 
-export default FormPage;
+export default CardExample;

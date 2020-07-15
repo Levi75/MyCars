@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./DisplayCars.module.scss";
-import Car from "./car/Car";
+import Car from "./Car/Car";
 import axios from "axios";
 
 export default function DisplayCars() {
