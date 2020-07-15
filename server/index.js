@@ -146,12 +146,7 @@ app.put("/users/update/:id", async (req, res) => {
         return;
       }
       return await pool.query(
-<<<<<<< HEAD
         `UPDATE users SET ${params[0]} = ${params[1]} WHERE user_id = ${id}`
-=======
-        `UPDATE users SET ${params[0]} = $1 WHERE id = $2`,
-        [params[1], id]
->>>>>>> 1005551fe3e5e08a9d11c51ab22a82df0d93c438
       );
     });
 
@@ -164,15 +159,9 @@ app.put("/users/update/:id", async (req, res) => {
 app.delete("/users/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-<<<<<<< HEAD
     const deleteUser = await pool.query(
       `DELETE FROM users WHERE user_id = ${id}`
     );
-=======
-    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
-      id,
-    ]);
->>>>>>> 1005551fe3e5e08a9d11c51ab22a82df0d93c438
     res.json("success");
   } catch (e) {
     console.error(e.massage);
