@@ -1,12 +1,17 @@
 import React from "react";
-import Spinner from "../helper/HelperSpinner/HelperSpinner";
+import { MDBCol } from "mdbreact";
 
-const SpinnerPage = () => {
+const SearchPage = () => {
   return (
-    <>
-      <Spinner />
-    </>
+    <MDBCol md="6">
+      <input
+        className="form-control"
+        type="text"
+        placeholder="Search"
+        aria-label="Search"
+      />
+    </MDBCol>
   );
 };
 
-export default SpinnerPage;
+export default SearchPage;

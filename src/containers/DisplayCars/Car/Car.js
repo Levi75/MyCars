@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 
 export default function Car({ car, getCars, setCars }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
+  console.log(car);
 
   let year = car.year && car.year.split("-")[0];
 
@@ -72,15 +73,41 @@ export default function Car({ car, getCars, setCars }) {
               </MDBCardTitle>
               <hr className="hr-light" />
               <MDBCardText className="white-text">
-                Name: <b>{car.name}</b>
-                <br />
-                Price: <b>{car.price}</b>
-                <br />
-                Year of car manufacture: <b>{year}</b>
-                <br />
-                boxtype: <b>{car.boxtype}</b>
-                <br />
-                enginecapacity: <b>{car.enginecapacity}</b>
+                {car.name && (
+                  <p>
+                    Имя: <b>{car.name}</b>
+                  </p>
+                )}
+                {car.price && (
+                  <p>
+                    Цена: <b>{car.price}</b>
+                  </p>
+                )}
+                {year && (
+                  <p>
+                    Год выпуска: <b>{year}</b>
+                  </p>
+                )}
+                {car.brand && (
+                  <p>
+                    Марка: <b>{car.brand}</b>
+                  </p>
+                )}
+                {car.model && (
+                  <p>
+                    Модель: <b>{car.model}</b>
+                  </p>
+                )}
+                {car.boxtype && (
+                  <p>
+                    Тип коробки передач: <b>{car.boxtype}</b>
+                  </p>
+                )}
+                {car.enginecapacity && (
+                  <p>
+                    Мощность двигателя: <b>{car.enginecapacity}</b>
+                  </p>
+                )}
               </MDBCardText>
               <Link
                 to={`/car-update/${car.id}`}

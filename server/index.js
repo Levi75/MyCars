@@ -137,30 +137,30 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 //FIX BAG!!!!!
-app.put("/users/update/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { body } = req;
-    console.log(body);
+// app.put("/users/update/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { body } = req;
+//     console.log(body);
 
-    Object.entries(body).map(async (params) => {
-      console.log(params);
+//     Object.entries(body).map(async (params) => {
+//       console.log(params);
 
-      if (params[1] === undefined || params[1] === null) {
-        return;
-      }
-      return await pool.query(`UPDATE users SET $1 = $2 WHERE id = $3;`, [
-        params[0],
-        params[1],
-        id,
-      ]);
-    });
+//       if (params[1] === undefined || params[1] === null) {
+//         return;
+//       }
+//       return await pool.query(`UPDATE users SET $1 = $2 WHERE id = $3;`, [
+//         params[0],
+//         params[1],
+//         id,
+//       ]);
+//     });
 
-    res.json("success");
-  } catch (e) {
-    console.error(e.massage);
-  }
-});
+//     res.json("success");
+//   } catch (e) {
+//     console.error(e.massage);
+//   }
+// });
 
 app.delete("/users/delete/:id", async (req, res) => {
   try {
@@ -173,75 +173,75 @@ app.delete("/users/delete/:id", async (req, res) => {
 });
 
 // // Routes GARAGE
-// app.post("/users/:id/garage/car", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { car_id } = req.body;
+app.post("/users/:id/garage/car", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { car_id } = req.body;
 
-//     const CreateUser = await pool.query(
-//       "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
-//       [id, car_id]
-//     );
+    const CreateUser = await pool.query(
+      "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
+      [id, car_id]
+    );
 
-//     res.json(CreateUser.rows);
-//   } catch (e) {
-//     console.error(e.massage);
-//   }
-// });
+    res.json(CreateUser.rows);
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
 
-// app.get("/users/:id/garage", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const garage = await pool.query(
-//       `SELECT * FROM garage g
-//       INNER JOIN user  ON user_id = ${id}
-//       INNER JOIN cars c ON c.id = g.car_id
-//       `
-//     );
+app.get("/users/:id/garage", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const garage = await pool.query(
+      `SELECT * FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      INNER JOIN cars c ON c.id = g.car_id
+      `
+    );
 
-//     res.json({ garage: garage.rows });
-//   } catch (e) {
-//     console.error(e.massage);
-//   }
-// });
+    res.json({ garage: garage.rows });
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
 
-// app.get("/users/:id/garage/other", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     let garage = await pool.query(
-//       `SELECT car_id FROM garage g
-//       INNER JOIN user  ON user_id = ${id}
-//       `
-//     );
-//     garage = garage.rows;
-//     let carsGarageId = [];
-//     garage.map((car) => {
-//       carsGarageId.push(car.car_id);
-//     });
+app.get("/users/:id/garage/other", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let garage = await pool.query(
+      `SELECT car_id FROM garage g
+      INNER JOIN user  ON user_id = ${id}
+      `
+    );
+    garage = garage.rows;
+    let carsGarageId = [];
+    garage.map((car) => {
+      carsGarageId.push(car.car_id);
+    });
 
-//     let cars = await pool.query(`SELECT * FROM cars`);
-//     cars = cars.rows;
-//     const resolve = cars.filter((car) => {
-//       const c = car.id;
-//       return !carsGarageId.includes(c);
-//     });
+    let cars = await pool.query(`SELECT * FROM cars`);
+    cars = cars.rows;
+    const resolve = cars.filter((car) => {
+      const c = car.id;
+      return !carsGarageId.includes(c);
+    });
 
-//     res.json({ cars: resolve });
-//   } catch (e) {
-//     console.error(e.massage);
-//   }
-// });
+    res.json({ cars: resolve });
+  } catch (e) {
+    console.error(e.massage);
+  }
+});
 
-// app.delete("/users/:id/garage/delete", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { car_id } = req.body;
-//     console.log(req.body);
-//     await pool.query(
-//       `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
-//     );
-//     res.json("success delete car in garage");
-//   } catch (err) {
-//     console.error(err.massage);
-//   }
-// });
+app.delete("/users/:id/garage/delete", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { car_id } = req.body;
+    console.log(req.body, req.params);
+    await pool.query(
+      `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
+    );
+    res.json("success delete car in garage");
+  } catch (err) {
+    console.error(err.massage);
+  }
+});

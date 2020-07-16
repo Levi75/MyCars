@@ -13,31 +13,27 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-export default function CarInGarage({ car, userId }) {
+export default function CarInGarage({ car, userId, getGarage }) {
   let year = car.year && car.year.split("-")[0];
 
-  const deleteCar = async () => {
-    console.log("car", car.id, "user", userId);
-    const val = {
-      car_id: 1,
-    };
-    console.log(val);
+  const deleteCar = async (car_id) => {
     try {
-      await axios.delete(
+      const response = await axios.delete(
         `http://localhost:5000/users/${userId}/garage/delete`,
-        val
+        { car_id: "12" }
       );
+      getGarage();
+      console.log(response);
 
       console.log("success delete");
     } catch (e) {
       console.log(e);
     }
-    // window.location.reload();
   };
 
   return (
     <MDBRow className={Styles.container}>
-      <MDBCol md="12" className="p-3">
+      <MDBCol md="13" className="p-3">
         <MDBCard className={Styles.card}>
           <img
             width={500}
@@ -55,19 +51,45 @@ export default function CarInGarage({ car, userId }) {
             </MDBCardTitle>
             <hr className="hr-light" />
             <MDBCardText className="white-text">
-              Name: <b>{car.name}</b>
-              <br />
-              Price: <b>{car.price}</b>
-              <br />
-              Year of car manufacture: <b>{year}</b>
-              <br />
-              boxtype: <b>{car.boxtype}</b>
-              <br />
-              enginecapacity: <b>{car.enginecapacity}</b>
+              {car.name && (
+                <p>
+                  Имя: <b>{car.name}</b>
+                </p>
+              )}
+              {car.price && (
+                <p>
+                  Цена: <b>{car.price}</b>
+                </p>
+              )}
+              {year && (
+                <p>
+                  Год выпуска: <b>{year}</b>
+                </p>
+              )}
+              {car.brand && (
+                <p>
+                  Марка: <b>{car.brand}</b>
+                </p>
+              )}
+              {car.model && (
+                <p>
+                  Модель: <b>{car.model}</b>
+                </p>
+              )}
+              {car.boxtype && (
+                <p>
+                  Тип коробки передач: <b>{car.boxtype}</b>
+                </p>
+              )}
+              {car.enginecapacity && (
+                <p>
+                  Мощность двигателя: <b>{car.enginecapacity}</b>
+                </p>
+              )}
             </MDBCardText>
             <MDBBtn
               color="btn btn-light darken-3 rounded float-right"
-              onClick={deleteCar}
+              onClick={() => deleteCar(car.id)}
             >
               Delete car
             </MDBBtn>
