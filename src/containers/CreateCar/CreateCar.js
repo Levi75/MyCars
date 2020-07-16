@@ -60,6 +60,8 @@ export default function CreateCar() {
   };
 
   const onSubmit = async (value) => {
+    console.log(value);
+
     setIsLoading(true);
     await createCars(value);
     setIsLoading(false);
