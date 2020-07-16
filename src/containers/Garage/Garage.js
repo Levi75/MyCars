@@ -89,7 +89,7 @@ export default function Garage() {
   }, [userId, getOwnerlessCars, getGarage]);
 
   return (
-    <>
+    <div className={Styles.Garage}>
       <MDBBtnGroup>
         <MDBBtn
           color="info"
@@ -151,6 +151,6 @@ export default function Garage() {
             })}
         </div>
       )}
-    </>
+    </div>
   );
 }
