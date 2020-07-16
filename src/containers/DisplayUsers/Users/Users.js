@@ -16,35 +16,43 @@ import {
   MDBIcon,
 } from "mdbreact";
 
-export default function Users({ user, getUsers }) {
+export default function Users({ user, getUsers, setIsLoading }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   const deleteCar = async (id) => {
-    console.log(id);
-
+    setIsLoading(true);
     try {
       await axios.delete(`http://localhost:5000/users/delete/${id}`);
       getUsers();
+      return;
     } catch (e) {
       console.log(e);
+      setIsLoading(false);
+      return;
     }
   };
 
   const updateCar = async (value) => {
+    setIsLoading(true);
     const { name } = value;
     try {
       await axios.put(`http://localhost:5000/users/update/${user.id}`, {
         name: name,
       });
       getUsers();
+      return;
     } catch (e) {
       console.log(e);
+      setIsLoading(false);
+      return;
     }
   };
 
   const onSubmit = async (value) => {
+    setIsLoading(true);
     setShowUpdate(!showUpdate);
     await updateCar(value);
+    setIsLoading(false);
   };
 
   return (

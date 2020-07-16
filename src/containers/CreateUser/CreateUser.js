@@ -5,8 +5,11 @@ import Button from "react-bootstrap/Button";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import Spinner from "../../helper/HelperSpinner/HelperSpinner";
 
 export default function CreateUser() {
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const postUser = async (value) => {
     try {
       const response = await axios.post(
@@ -20,8 +23,15 @@ export default function CreateUser() {
   };
 
   const onSubmit = async (value) => {
-    postUser(value);
+    setIsLoading(true);
+    await postUser(value);
+    setIsLoading(false);
   };
+
+  if (isLoading === true) {
+    return <Spinner />;
+  }
+
   return (
     <div className={Styles.User}>
       <Form

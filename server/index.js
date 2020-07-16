@@ -28,7 +28,7 @@ app.post("/cars/add", async (req, res) => {
     } = req.body;
 
     const newCar = await pool.query(
-      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity, img) VALUES($1,$2,$3,$4,$5,$6,$7, $8) RETURNING *;",
+      "INSERT INTO cars(name, price, year, brand, model, boxType, engineCapacity, img) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;",
       [name, price, year, brand, model, boxType, engineCapacity, img]
     );
 
@@ -101,14 +101,16 @@ app.post("/users/add", async (req, res) => {
   try {
     const { name, email } = req.body;
     const checkEmail = await pool.query(
-      `SELECT * FROM users WHERE email = ${email}`
+      `SELECT * FROM users WHERE email = $1`,
+      [email]
     );
     if (checkEmail.rows[0]) {
       res.json("Такой эмаил уже существует");
       return;
     }
     const CreateUser = await pool.query(
-      `INSERT INTO users(name,email) VALUES(${name},${email}) RETURNING *`
+      `INSERT INTO users(name,email) VALUES($1,$2) RETURNING *`,
+      [name, email]
     );
     res.json(CreateUser.rows[0]);
   } catch (e) {

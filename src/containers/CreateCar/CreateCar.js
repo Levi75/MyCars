@@ -3,10 +3,11 @@ import Styles from "./CreateCar.module.scss";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import Spinner from "../../helper/HelperSpinner/HelperSpinner";
 
 export default function CreateCar() {
-  const [users, setUsers] = React.useState();
-  console.log(users);
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const years = [
     "1980",
     "1981",
@@ -54,13 +55,20 @@ export default function CreateCar() {
     try {
       await axios.post("http://localhost:5000/cars/add", value);
     } catch (e) {
-      console.log(e);
+      return console.log(e);
     }
   };
 
   const onSubmit = async (value) => {
-    createCars(value);
+    setIsLoading(true);
+    await createCars(value);
+    setIsLoading(false);
   };
+
+  if (isLoading === true) {
+    return <Spinner />;
+  }
+
   return (
     <div className={Styles.Car}>
       <Form

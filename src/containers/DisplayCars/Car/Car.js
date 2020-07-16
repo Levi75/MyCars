@@ -13,7 +13,7 @@ import {
 } from "mdbreact";
 import { Link } from "react-router-dom";
 
-export default function Car({ car, getCars }) {
+export default function Car({ car, getCars, setCars }) {
   const [showUpdate, setShowUpdate] = React.useState(false);
 
   let year = car.year && car.year.split("-")[0];
@@ -21,29 +21,34 @@ export default function Car({ car, getCars }) {
   const id = car.cars_id;
 
   const deleteCar = async (id) => {
+    setCars(true);
     try {
       await axios.delete(`http://localhost:5000/cars/delete/${id}`);
-      return getCars();
+      getCars();
+      return;
     } catch (e) {
+      setCars(false);
       return console.log(e);
     }
   };
 
   const updateCar = async (value) => {
     console.log(value, id);
-
+    setCars(true);
     try {
       await axios.put(`http://localhost:5000/cars/update/${id}`, value);
-      return getCars();
+      getCars();
+      return;
     } catch (e) {
+      setCars(false);
       return console.log(e);
     }
   };
 
   const onSubmit = async (value) => {
-    console.log(value);
-
-    updateCar(value);
+    setCars(true);
+    await updateCar(value);
+    setCars(false);
   };
 
   return (
