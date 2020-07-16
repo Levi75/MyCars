@@ -54,9 +54,9 @@ export default function Car({ car, getCars, setCars }) {
 
   return (
     <div>
-      <MDBRow className={Styles.container}>
+      <MDBRow className={Styles.Container}>
         <MDBCol md="12" className="p-3">
-          <MDBCard className={Styles.card}>
+          <MDBCard>
             <img
               width={500}
               top
@@ -110,11 +110,11 @@ export default function Car({ car, getCars, setCars }) {
                 )}
               </MDBCardText>
               <Link
-                to={`/car-update/${car.id}`}
+                to={`/car-change/${car.id}`}
                 className="black-text d-flex justify-content-end"
               >
                 <h5 className="white-text">
-                  Read more
+                  Редактировать
                   <MDBIcon icon="angle-double-right" className="ml-2" />
                 </h5>
               </Link>
@@ -124,14 +124,4 @@ export default function Car({ car, getCars, setCars }) {
       </MDBRow>
     </div>
   );
-  // (
-  //   <div className={Styles.Car}>
-  //     <div>
-  //       <span> name: {car.name}</span>
-  //       <span> price: {car.price}</span>
-  //     </div>
-  //     <button onClick={() => deleteCar(car.cars_id)}> delete</button>
-  //     <button onClick={() => setShowUpdate(!showUpdate)}> update</button>
-  //   </div>
-  // );
 }

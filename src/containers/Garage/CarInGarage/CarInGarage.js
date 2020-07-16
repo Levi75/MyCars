@@ -91,7 +91,7 @@ export default function CarInGarage({ car, userId, getGarage }) {
               color="btn btn-light darken-3 rounded float-right"
               onClick={() => deleteCar(car.id)}
             >
-              Delete car
+              Удалить из гаража
             </MDBBtn>
           </MDBCardBody>
         </MDBCard>

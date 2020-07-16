@@ -89,7 +89,7 @@ export default function OwnerlessCars({ car, getOwnerlessCars }) {
               color="btn btn-light darken-3 rounded float-right"
               onClick={() => addCar(car.cars_id)}
             >
-              Add car
+              Добавить машину
             </MDBBtn>
           </MDBCardBody>
         </MDBCard>

@@ -6,6 +6,7 @@ import CreateUser from "./containers/CreateUser/CreateUser";
 import DisplayCars from "./containers/DisplayCars/DisplayCars";
 import DisplayUsers from "./containers/DisplayUsers/DisplayUsers";
 import Garage from "./containers/Garage/Garage";
+import ChangeCar from "./containers/ChangeCar/ChangeCar";
 import { MDBNavbar, MDBNavbarNav, MDBNavItem, MDBNavLink } from "mdbreact";
 
 import Test from "./components/Test";
@@ -56,6 +57,7 @@ function App() {
         <Route path="/display-car" component={DisplayCars} />
         <Route path="/display-user" component={DisplayUsers} />
         <Route path="/garage/:id" component={Garage} />
+        <Route path="/car-change/:id" component={ChangeCar} />
         <Route path="/test" component={Test} />
       </Switch>
     </div>
