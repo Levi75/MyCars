@@ -234,6 +234,8 @@ app.delete("/users/:id/garage/delete", async (req, res) => {
   try {
     const { id } = req.params;
     const { car_id } = req.body;
+    console.log(req.body);
+
     await pool.query(
       `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
     );

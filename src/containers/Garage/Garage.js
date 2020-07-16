@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function Garage() {
-  const [garage, setGarage] = React.useState({});
-  const [cars, setCars] = React.useState([]);
- 
+  const [garage, setGarage] = React.useState([]);
+
   const [ownerlessCars, setOwnerlessCars] = React.useState([]);
 
   const userId = useParams().id;
@@ -16,12 +15,11 @@ export default function Garage() {
   const getGarage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000//users/${userId}/garage`
+        `http://localhost:5000/users/${userId}/garage`
       );
 
-      setGarage(response.data);
-      setCars(response.data.cars);
-      
+      setGarage(response.data.garage);
+
       return;
     } catch (e) {
       return console.log(e);
@@ -45,11 +43,10 @@ export default function Garage() {
   return (
     <div className={Styles.Garage}>
       <div className={Styles.Garage_container}>
-        
         <div className={Styles.infoCars}>
-          {cars.length !== 0
-            ? cars.map((car, index) => {
-                return <CarInGarage car={car} key={index} />;
+          {garage.length !== 0
+            ? garage.map((car, index) => {
+                return <CarInGarage car={car} userId={userId} key={index} />;
               })
             : null}
         </div>
@@ -60,7 +57,7 @@ export default function Garage() {
               return (
                 <div>
                   <h2>Ownerless Cars</h2>
-                  <OwnerlessCars car={car} key={index} />
+                  <OwnerlessCars car={car}  key={index} />
                 </div>
               );
             })

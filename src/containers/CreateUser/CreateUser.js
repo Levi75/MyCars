@@ -11,6 +11,7 @@ export default function CreateUser() {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const postUser = async (value) => {
+    console.log(value);
     try {
       const response = await axios.post(
         "http://localhost:5000/users/add",
