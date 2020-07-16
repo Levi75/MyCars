@@ -97,8 +97,8 @@ export default function ChangeCar() {
     setIsLoading(true);
     try {
       await axios.get(`http://localhost:5000/cars/update/${idCar}`, { value });
+      await getCar();
       setIsLoading(false);
-      getCar();
       return;
     } catch (error) {
       setIsLoading(false);
@@ -112,7 +112,7 @@ export default function ChangeCar() {
   }, [getCar]);
 
   const onSubmit = async (value) => {
-    console.log(value);
+    await changeCar(value);
   };
 
   if (isLoading === true) {
