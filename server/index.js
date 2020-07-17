@@ -65,6 +65,7 @@ app.put("/cars/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
+    console.log(id, body);
     const lengthParams = Object.entries(body).length;
     let paramsstr = [];
     Object.entries(body).map(async (params, i) => {
