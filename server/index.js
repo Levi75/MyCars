@@ -166,6 +166,32 @@ app.get("/users/:id", async (req, res) => {
 //   }
 // });
 
+app.put("/users/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    const lengthParams = Object.entries(body).length;
+    let paramsstr = [];
+    Object.entries(body).map(async (params, i) => {
+      if (params[1] === undefined || params[1] === null) {
+        return;
+      }
+      if (i + 1 === lengthParams) {
+        return paramsstr.push(`${params[0]} = '${params[1]}'`);
+      } else {
+        return paramsstr.push(`${params[0]} = '${params[1]}',`);
+      }
+    });
+    const str = paramsstr.join("");
+    console.log(str);
+    await pool.query(`UPDATE users SET ${str} WHERE id = ${id}`);
+
+    res.json("success");
+  } catch (err) {
+    console.error(err.massage);
+  }
+});
+
 app.delete("/users/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
