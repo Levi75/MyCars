@@ -30,7 +30,7 @@ export default function ChangeCar() {
       boxTypeRus = "Роботизированная коробк";
       break;
     case "Variable transmission":
-      boxTypeRus = "МВариативная коробка";
+      boxTypeRus = "Вариативная коробка";
       break;
   }
   const years = [
@@ -111,6 +111,8 @@ export default function ChangeCar() {
   }, [getCar]);
 
   const onSubmit = async (value) => {
+    console.log(value);
+
     await changeCar(value);
   };
 
@@ -183,7 +185,7 @@ export default function ChangeCar() {
                             <option>{year}</option>
                             {years.map((year) => {
                               return (
-                                <option value={`${year}-01-01`}>{year}</option>
+                                <option value={`${year}-03-03`}>{year}</option>
                               );
                             })}
                           </select>
