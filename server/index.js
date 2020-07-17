@@ -250,3 +250,15 @@ app.delete("/users/:id/garage/delete/:car_id", async (req, res) => {
     console.error(err.massage);
   }
 });
+
+////////////////////////////////////////////////
+
+app.delete("/clear", async (req, res) => {
+  try {
+    await pool.query("TRUNCATE garage, cars, users;");
+  
+    res.json("success clear");
+  } catch (err) {
+    console.error(err.massage);
+  }
+});
