@@ -14,7 +14,7 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-export default function OwnerlessCars({ car }) {
+export default function OwnerlessCars({ car, getOwnerlessCars, getGarage }) {
   const userId = useParams().id;
   let year = car.year && car.year.split("-")[0];
 
@@ -24,6 +24,8 @@ export default function OwnerlessCars({ car }) {
       const response = await axios.post(
         `http://localhost:5000/users/${userId}/garage/car/${car.id}`
       );
+      getOwnerlessCars();
+      getGarage();
       console.log(response);
     } catch (e) {
       console.log(e);

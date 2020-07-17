@@ -13,7 +13,12 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-export default function CarInGarage({ car, userId, getGarage }) {
+export default function CarInGarage({
+  car,
+  userId,
+  getGarage,
+  getOwnerlessCars,
+}) {
   let year = car.year && car.year.split("-")[0];
 
   const deleteCar = async (car_id) => {
@@ -21,7 +26,8 @@ export default function CarInGarage({ car, userId, getGarage }) {
       const response = await axios.delete(
         `http://localhost:5000/users/${userId}/garage/delete/${car_id}`
       );
-
+      getGarage();
+      getOwnerlessCars();
       console.log(response);
 
       console.log("success delete");

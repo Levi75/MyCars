@@ -17,14 +17,6 @@ export default function Garage() {
     searchValueOwnerLessCars,
     setSearchValueOwnerLessCars,
   ] = React.useState("");
-  const [responseOwnerLessCars, setResponseOwnerLessCars] = React.useState("");
-
-
-  // console.log(filterMyCar);
-
-  const upadateData = ()=>{
-
-  }
 
   const userId = useParams().id;
 
@@ -131,6 +123,7 @@ export default function Garage() {
                   userId={userId}
                   key={index}
                   getGarage={getGarage}
+                  getOwnerlessCars={getOwnerlessCars}
                 />
               );
             })}
@@ -152,6 +145,7 @@ export default function Garage() {
                     car={car}
                     key={index}
                     getOwnerlessCars={getOwnerlessCars}
+                    getGarage={getGarage}
                   />
                 </div>
               );

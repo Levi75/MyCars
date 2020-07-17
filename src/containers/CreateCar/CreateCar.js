@@ -60,8 +60,6 @@ export default function CreateCar() {
   };
 
   const onSubmit = async (value) => {
-    console.log(value);
-
     setIsLoading(true);
     await createCars(value);
     setIsLoading(false);
@@ -132,9 +130,11 @@ export default function CreateCar() {
                           }}
                         >
                           <option value={""}>Год выпуска</option>
-                          {years.map((year) => {
+                          {years.map((year, index) => {
                             return (
-                              <option value={`${year}-01-01`}>{year}</option>
+                              <option value={`${year}-01-01`} key={index}>
+                                {year}
+                              </option>
                             );
                           })}
                         </select>
