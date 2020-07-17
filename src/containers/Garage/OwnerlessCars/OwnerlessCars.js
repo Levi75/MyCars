@@ -14,16 +14,17 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-export default function OwnerlessCars({ car, getOwnerlessCars }) {
+export default function OwnerlessCars({ car }) {
   const userId = useParams().id;
   let year = car.year && car.year.split("-")[0];
 
-  const addCar = async (carId) => {
+  const addCar = async () => {
+    console.log(car.id, userId);
     try {
-      await axios.put(`http://localhost:5000/garage/${userId}`, {
-        carId,
-      });
-      getOwnerlessCars();
+      const response = await axios.post(
+        `http://localhost:5000/users/${userId}/garage/car/${car.id}`
+      );
+      console.log(response);
     } catch (e) {
       console.log(e);
     }
@@ -87,7 +88,7 @@ export default function OwnerlessCars({ car, getOwnerlessCars }) {
             </MDBCardText>
             <MDBBtn
               color="btn btn-light darken-3 rounded float-right"
-              onClick={() => addCar(car.cars_id)}
+              onClick={() => addCar()}
             >
               Добавить машину
             </MDBBtn>

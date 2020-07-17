@@ -203,10 +203,9 @@ app.delete("/users/delete/:id", async (req, res) => {
 });
 
 // // Routes GARAGE
-app.post("/users/:id/garage/car", async (req, res) => {
+app.post("/users/:id/garage/car/:car_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const { car_id } = req.body;
+    const { id, car_id } = req.params;
 
     const CreateUser = await pool.query(
       "INSERT INTO garage(user_id,car_id) VALUES($1,$2) RETURNING *",
@@ -262,11 +261,11 @@ app.get("/users/:id/garage/other", async (req, res) => {
   }
 });
 
-app.delete("/users/:id/garage/delete", async (req, res) => {
+app.delete("/users/:id/garage/delete/:car_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const { car_id } = req.body;
-    console.log(req.body, req.params);
+    const { id, car_id } = req.params;
+    // const { car_id } = req.body;
+    console.log("delete------", req.body, req.params);
     await pool.query(
       `DELETE FROM garage WHERE (car_id=${car_id}) AND (user_id=${id})`
     );

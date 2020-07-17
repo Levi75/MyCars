@@ -19,10 +19,9 @@ export default function CarInGarage({ car, userId, getGarage }) {
   const deleteCar = async (car_id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/users/${userId}/garage/delete`,
-        { car_id: "12" }
+        `http://localhost:5000/users/${userId}/garage/delete/${car_id}`
       );
-      getGarage();
+
       console.log(response);
 
       console.log("success delete");

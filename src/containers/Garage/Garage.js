@@ -17,7 +17,7 @@ export default function Garage() {
     searchValueOwnerLessCars,
     setSearchValueOwnerLessCars,
   ] = React.useState("");
-  console.log(filterMyCar);
+  // console.log(filterMyCar);
 
   const userId = useParams().id;
 
@@ -38,7 +38,7 @@ export default function Garage() {
       const response = await axios.get(
         `http://localhost:5000/users/${userId}/garage/other`
       );
-      console.log(response.data.cars);
+      // console.log(response.data.cars);
       setOwnerlessCars(response.data.cars);
 
       return;
