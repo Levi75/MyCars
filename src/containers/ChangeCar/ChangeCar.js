@@ -11,8 +11,6 @@ export default function ChangeCar() {
   const [isLoading, setIsLoading] = React.useState(false);
   const idCar = useParams().id;
   let year;
-  console.log(car);
-  console.log(car.year);
 
   if (car.year) {
     year = car.year.split("-")[0];
@@ -94,7 +92,7 @@ export default function ChangeCar() {
   }, []);
 
   const changeCar = async (value) => {
-    
+    console.log(value);
     setIsLoading(true);
     try {
       await axios.put(`http://localhost:5000/cars/update/${idCar}`, value);
