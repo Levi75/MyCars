@@ -65,17 +65,21 @@ app.put("/cars/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
-
-    Object.entries(body).map(async (params) => {
-      console.log(params);
-
+    const lengthParams = Object.entries(body).length;
+    let paramsstr = [];
+    Object.entries(body).map(async (params, i) => {
       if (params[1] === undefined || params[1] === null) {
         return;
       }
-      return await pool.query(
-        `UPDATE cars SET ${params[0]} = ${params[1]} WHERE id = ${id}`
-      );
+      if (i + 1 === lengthParams) {
+        return paramsstr.push(`${params[0]} = '${params[1]}'`);
+      } else {
+        return paramsstr.push(`${params[0]} = '${params[1]}',`);
+      }
     });
+    const str = paramsstr.join("");
+    console.log(str);
+    await pool.query(`UPDATE cars SET ${str} WHERE id = ${id}`);
 
     res.json("success");
   } catch (err) {
