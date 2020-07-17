@@ -140,31 +140,6 @@ app.get("/users/:id", async (req, res) => {
     console.error(e.massage);
   }
 });
-//FIX BAG!!!!!
-// app.put("/users/update/:id", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { body } = req;
-//     console.log(body);
-
-//     Object.entries(body).map(async (params) => {
-//       console.log(params);
-
-//       if (params[1] === undefined || params[1] === null) {
-//         return;
-//       }
-//       return await pool.query(`UPDATE users SET $1 = $2 WHERE id = $3;`, [
-//         params[0],
-//         params[1],
-//         id,
-//       ]);
-//     });
-
-//     res.json("success");
-//   } catch (e) {
-//     console.error(e.massage);
-//   }
-// });
 
 app.put("/users/update/:id", async (req, res) => {
   try {
