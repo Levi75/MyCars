@@ -94,9 +94,10 @@ export default function ChangeCar() {
   }, []);
 
   const changeCar = async (value) => {
+    
     setIsLoading(true);
     try {
-      await axios.get(`http://localhost:5000/cars/update/${idCar}`, { value });
+      await axios.put(`http://localhost:5000/cars/update/${idCar}`, value);
       await getCar();
       setIsLoading(false);
       return;
@@ -257,7 +258,7 @@ export default function ChangeCar() {
                         </select>
                       )}
                     </Field>
-                    <Field name="engineCapacity">
+                    <Field name="enginecapacity">
                       {({ input }) => (
                         <MDBInput
                           label="Мощность двигателя"
@@ -266,7 +267,7 @@ export default function ChangeCar() {
                           error="wrong"
                           success="right"
                           group
-                          name="engineCapacity"
+                          name="enginecapacity"
                           type="number"
                           placeholder="Имя"
                           valueDefault={car.enginecapacity}
