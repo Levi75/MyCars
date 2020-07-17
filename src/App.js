@@ -9,8 +9,6 @@ import Garage from "./containers/Garage/Garage";
 import ChangeCar from "./containers/ChangeCar/ChangeCar";
 import { MDBNavbar, MDBNavbarNav, MDBNavItem, MDBNavLink } from "mdbreact";
 
-import Test from "./components/Test";
-
 function App() {
   const [activeLink, setActiveLink] = React.useState("сreate-сar");
 
@@ -42,12 +40,6 @@ function App() {
           >
             <MDBNavLink to="/display-user">Пользователи</MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem
-            active={activeLink === "test" && true}
-            onClick={() => setActiveLink("test")}
-          >
-            <MDBNavLink to="/test">Test</MDBNavLink>
-          </MDBNavItem>
         </MDBNavbarNav>
       </MDBNavbar>
 
@@ -58,7 +50,6 @@ function App() {
         <Route path="/display-user" component={DisplayUsers} />
         <Route path="/garage/:id" component={Garage} />
         <Route path="/car-change/:id" component={ChangeCar} />
-        <Route path="/test" component={Test} />
       </Switch>
     </div>
   );
